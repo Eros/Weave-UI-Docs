@@ -1,0 +1,164 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+    <Style src="Hud.uss" />
+
+    <!-- The HUD ignores the pointer except where it's interactive (the hotbar), so clicks reach the game. -->
+    <ui:VisualElement name="hud" picking-mode="Ignore" class="flex-1">
+
+        <!-- Player frame: portrait with level badge, health and mana bars, XP -->
+        <ui:VisualElement name="player" picking-mode="Ignore" class="hud-card absolute top-8 left-8 flex-row items-center p-4">
+            <ui:VisualElement class="portrait" picking-mode="Ignore">
+                <ui:Label text="A" class="portrait__initial" />
+                <ui:Label class="portrait__level">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="LevelText" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="ml-5" style="width: 340px;" picking-mode="Ignore">
+                <ui:VisualElement class="flex-row items-end justify-between mb-2" picking-mode="Ignore">
+                    <ui:Label class="text-2xl font-bold text-white p-0 hud-shadow">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="PlayerName" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                    <ui:Label class="text-sm text-amber-200 p-0 mb-1">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="ClassName" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="health" class="bar bar--health" picking-mode="Ignore">
+                    <ui:VisualElement class="bar__lag">
+                        <Bindings>
+                            <ui:DataBinding property="style.width" data-source-path="HealthFill" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="bar__fill">
+                        <Bindings>
+                            <ui:DataBinding property="style.width" data-source-path="HealthFill" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:VisualElement>
+                    <ui:Label class="bar__text">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="HealthText" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="mana" class="bar bar--mana" picking-mode="Ignore">
+                    <ui:VisualElement class="bar__fill">
+                        <Bindings>
+                            <ui:DataBinding property="style.width" data-source-path="ManaFill" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:VisualElement>
+                    <ui:Label class="bar__text">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="ManaText" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+
+                <weave:ProgressBar name="xp" class="hud-xp" picking-mode="Ignore">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="Xp" binding-mode="ToTarget" />
+                        <ui:DataBinding property="title" data-source-path="XpTitle" binding-mode="ToTarget" />
+                    </Bindings>
+                </weave:ProgressBar>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Compass strip with the quest marker -->
+        <ui:VisualElement class="absolute top-8 left-0 right-0 items-center" picking-mode="Ignore">
+            <ui:VisualElement class="hud-card compass" picking-mode="Ignore">
+                <ui:Label text="W" class="compass__mark compass__mark--major" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="NW" class="compass__mark" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="N" class="compass__mark compass__mark--major" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="NE" class="compass__mark" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="·" class="compass__mark" />
+                <ui:Label text="E" class="compass__mark compass__mark--major" />
+                <ui:VisualElement class="compass__quest" />
+                <ui:VisualElement class="compass__needle" />
+            </ui:VisualElement>
+            <ui:Label class="mt-2 text-sm text-slate-200 hud-shadow">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Heading" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+
+        <!-- Top right: currencies, minimap, quest tracker -->
+        <ui:VisualElement class="absolute top-8 right-8 items-end" picking-mode="Ignore">
+            <ui:VisualElement class="flex-row mb-4 gap-3" picking-mode="Ignore">
+                <ui:VisualElement class="hud-card chip" picking-mode="Ignore">
+                    <ui:VisualElement class="chip__icon chip__icon--coin" />
+                    <ui:Label class="chip__text">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="GoldText" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement class="hud-card chip" picking-mode="Ignore">
+                    <ui:VisualElement class="chip__icon chip__icon--gem" />
+                    <ui:Label class="chip__text">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="GemsText" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="minimap" picking-mode="Ignore">
+                <ui:VisualElement class="minimap__land minimap__land--north" />
+                <ui:VisualElement class="minimap__land minimap__land--south" />
+                <ui:VisualElement class="minimap__road" />
+                <ui:VisualElement class="minimap__ring minimap__ring--inner" />
+                <ui:VisualElement class="minimap__ring minimap__ring--outer" />
+                <ui:VisualElement class="minimap__poi minimap__poi--quest" style="left: 150px; top: 44px;" />
+                <ui:VisualElement class="minimap__poi minimap__poi--town" style="left: 46px; top: 128px;" />
+                <ui:VisualElement class="minimap__poi minimap__poi--enemy" style="left: 132px; top: 148px;" />
+                <ui:VisualElement class="minimap__poi minimap__poi--enemy" style="left: 146px; top: 162px;" />
+                <ui:VisualElement class="minimap__player" />
+                <ui:Label text="N" class="minimap__north" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="hud-card mt-4 p-4" style="width: 320px;" picking-mode="Ignore">
+                <ui:Label text="QUESTS" class="section-title" />
+                <ui:VisualElement name="quests" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Bottom left: combat and loot log (filled in HudScreen) -->
+        <ui:VisualElement name="log" class="hud-card absolute left-8 bottom-8 p-4" style="width: 440px;" picking-mode="Ignore" />
+
+        <!-- Bottom right: toasts (added by HudScreen) -->
+        <ui:VisualElement name="toasts" class="absolute right-8 bottom-8 items-end" picking-mode="Ignore" />
+
+        <!-- Bottom centre: interaction prompt and the hotbar -->
+        <ui:VisualElement class="absolute left-0 right-0 bottom-8 items-center" picking-mode="Ignore">
+            <ui:VisualElement class="hud-card flex-row items-center mb-4 px-4 py-2" picking-mode="Ignore">
+                <ui:Label text="E" class="key-chip mr-3" />
+                <ui:Label class="text-base text-white p-0">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Prompt" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement class="hud-card p-3" picking-mode="Ignore">
+                <weave:Grid name="hotbar" class="hotbar" columns="8" slot-count="8" cell-size="64" gap="8" drag="default" style="width: 568px; height: 64px;">
+                    <Bindings>
+                        <ui:DataBinding property="ItemsSource" data-source-path="Hotbar" binding-mode="ToTarget" />
+                    </Bindings>
+                </weave:Grid>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

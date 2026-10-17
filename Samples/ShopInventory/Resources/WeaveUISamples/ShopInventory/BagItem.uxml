@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <!-- One bag item. In occupancy mode the piece spans the item's slots, so the icon scales to its shape. -->
+    <ui:VisualElement class="flex-1">
+        <Bindings>
+            <ui:DataBinding property="tooltip" data-source-path="Name" binding-mode="ToTarget" />
+        </Bindings>
+        <ui:VisualElement class="bag-item__icon" picking-mode="Ignore">
+            <Bindings>
+                <ui:DataBinding property="style.backgroundImage" data-source-path="IconBackground" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:VisualElement>
+        <ui:VisualElement class="rarity-strip" picking-mode="Ignore">
+            <Bindings>
+                <ui:DataBinding property="style.backgroundColor" data-source-path="RarityColor" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

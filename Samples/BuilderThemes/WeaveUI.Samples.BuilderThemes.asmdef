@@ -1,0 +1,14 @@
+{
+    "name": "WeaveUI.Samples.BuilderThemes",
+    "rootNamespace": "WeaveUI.Samples.BuilderThemes",
+    "references": ["WeaveUI"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

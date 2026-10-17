@@ -1,0 +1,84 @@
+.settings { width: 1040px; }
+
+.settings__tabs { height: 660px; }
+.settings__tabs .unity-tab__content-container { padding-top: 8px; }
+
+/* Scrollbar */
+.settings__tabs .unity-scroller--vertical { width: 8px; margin-left: 8px; border-width: 0; background-color: rgba(0, 0, 0, 0); }
+.settings__tabs .unity-scroller__low-button, .settings__tabs .unity-scroller__high-button { display: none; }
+.settings__tabs .unity-scroller__slider { margin: 0; }
+.settings__tabs .unity-scroller .unity-base-slider__tracker { border-width: 0; border-radius: 4px; background-color: var(--weave-surface-raised); }
+.settings__tabs .unity-scroller .unity-base-slider__dragger { border-width: 0; border-radius: 4px; background-color: var(--weave-control-hover); }
+
+.section-heading {
+    margin: 18px 0 4px 4px;
+    padding: 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    -unity-font-style: bold;
+    color: var(--weave-primary);
+}
+
+/* Setting Rows */
+
+.setting-row {
+    flex-direction: row;
+    align-items: center;
+    min-height: 68px;
+    padding: 8px 12px;
+    border-bottom-width: 1px;
+    border-color: var(--weave-border);
+    border-radius: 8px;
+}
+
+.setting-row:hover { background-color: var(--weave-surface-raised); }
+
+.setting-row__text { flex-grow: 1; flex-shrink: 1; padding-right: 32px; }
+.setting-row__name { padding: 0; font-size: 16px; -unity-font-style: bold; color: var(--weave-text); }
+.setting-row__hint { margin-top: 2px; padding: 0; font-size: 13px; white-space: normal; color: var(--weave-text-muted); }
+
+.setting-row__control {
+    width: 380px;
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.setting-row__slider, .setting-row__dropdown { flex-grow: 1; margin: 0; }
+.setting-row__toggle { margin: 0; }
+
+.setting-row__value {
+    width: 72px;
+    padding: 0;
+    font-size: 15px;
+    -unity-text-align: middle-right;
+    color: var(--weave-text);
+}
+
+/* Disabled Rows */
+.setting-row:disabled { opacity: 0.45; }
+
+/* Keycaps */
+
+.keycap {
+    min-width: 140px;
+    height: 36px;
+    margin: 0;
+    border-width: 1px;
+    border-bottom-width: 3px;
+    border-color: var(--weave-border);
+    border-radius: 8px;
+    background-color: var(--weave-surface-raised);
+    color: var(--weave-text);
+    font-size: 14px;
+    -unity-font-style: bold;
+}
+
+.keycap:hover { border-color: var(--weave-control-hover); }
+
+.keycap--listening {
+    border-color: var(--weave-primary);
+    background-color: var(--weave-selection);
+    color: var(--weave-primary);
+}

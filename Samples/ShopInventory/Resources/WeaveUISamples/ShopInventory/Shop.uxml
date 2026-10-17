@@ -1,0 +1,85 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+    <Style src="Shop.uss" />
+
+    <ui:VisualElement name="background" class="flex-1 items-center justify-center bg-slate-100 dark:bg-slate-950">
+        <ui:VisualElement name="card" class="panel shop">
+
+            <!-- Header: vendor and the player's gold -->
+            <ui:VisualElement class="flex-row items-center mb-6">
+                <ui:VisualElement class="vendor-badge mr-4">
+                    <ui:Label text="M" class="vendor-badge__initial" />
+                </ui:VisualElement>
+                <ui:VisualElement class="flex-1">
+                    <ui:Label text="Mirela's Curiosities" class="title mb-0" />
+                    <ui:Label text="Harbour market · everything sells back for half" class="text-sm text-slate-500 dark:text-slate-400" />
+                </ui:VisualElement>
+                <ui:VisualElement class="gold">
+                    <ui:VisualElement class="gold__icon" />
+                    <ui:Label class="gold__text">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="GoldText" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="flex-row items-start gap-6">
+
+                <!-- Vendor: a plain grid, one item per slot -->
+                <ui:VisualElement>
+                    <ui:Label text="FOR SALE" class="section-heading" />
+                    <weave:Grid name="vendor" columns="3" cell-size="128" cell-height="164" gap="12" drag="manual" style="width: 408px; height: 516px;">
+                        <Bindings>
+                            <ui:DataBinding property="ItemsSource" data-source-path="Stock" binding-mode="ToTarget" />
+                        </Bindings>
+                    </weave:Grid>
+                </ui:VisualElement>
+
+                <!-- Details of the selected item -->
+                <ui:VisualElement name="details" class="details">
+                    <ui:VisualElement class="details__icon">
+                        <Bindings>
+                            <ui:DataBinding property="style.backgroundImage" data-source-path="SelectedIcon" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:VisualElement>
+                    <ui:Label class="details__name">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="SelectedName" binding-mode="ToTarget" />
+                            <ui:DataBinding property="style.color" data-source-path="SelectedColor" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                    <ui:Label class="details__summary">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="SelectedSummary" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                    <ui:Label class="details__description">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="SelectedDescription" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                    <ui:VisualElement class="flex-1" />
+                    <weave:Button name="act" variant="primary" size="lg" click="Act">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="ActionText" binding-mode="ToTarget" />
+                            <ui:DataBinding property="enabledSelf" data-source-path="CanAct" binding-mode="ToTarget" />
+                        </Bindings>
+                    </weave:Button>
+                </ui:VisualElement>
+
+                <!-- The bag: an occupancy grid, items take their real size (set up in ShopScreen) -->
+                <ui:VisualElement>
+                    <ui:Label text="YOUR BAG" class="section-heading" />
+                    <weave:Grid name="bag" cell-size="56" gap="4" drag="manual" style="width: 476px; height: 356px;" />
+                    <ui:Label text="Items keep their shape: the axe needs a free 2 × 3 space." class="text-sm text-slate-500 dark:text-slate-400 mt-3" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Label name="status" class="mt-6 text-sm text-amber-600 dark:text-amber-300">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Status" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

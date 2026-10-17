@@ -1,0 +1,22 @@
+.weave-root {
+    --weave-primary: var(--color-orange-500);
+    --weave-primary-hover: var(--color-orange-400);
+    --weave-primary-active: var(--color-orange-600);
+    --weave-on-primary: var(--color-stone-950);
+    --weave-danger: var(--color-rose-500);
+    --weave-danger-hover: var(--color-rose-400);
+    --weave-danger-active: var(--color-rose-600);
+    --weave-surface: rgb(33, 22, 18);
+    --weave-surface-raised: rgb(46, 31, 25);
+    --weave-control: rgb(68, 46, 37);
+    --weave-control-hover: rgb(92, 61, 47);
+    --weave-control-active: rgb(56, 38, 31);
+    --weave-selection: rgb(92, 45, 18);
+    --weave-text: var(--color-orange-50);
+    --weave-text-muted: rgb(196, 160, 140);
+    --weave-border: rgb(82, 55, 44);
+    --weave-focus: var(--color-amber-300);
+    --weave-tooltip: rgb(20, 12, 10);
+    --weave-tooltip-text: var(--color-orange-50);
+    --sheet-page: rgb(18, 11, 9);
+}

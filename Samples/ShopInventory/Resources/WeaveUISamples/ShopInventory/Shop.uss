@@ -1,0 +1,108 @@
+.shop { width: 1400px; }
+
+.section-heading {
+    margin: 0 0 10px 2px;
+    padding: 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    -unity-font-style: bold;
+    color: var(--weave-text-muted);
+}
+
+/* Header */
+
+.vendor-badge {
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    border-color: var(--color-amber-300);
+    border-radius: 28px;
+    background-color: var(--color-violet-800);
+}
+
+.vendor-badge__initial { padding: 0; font-size: 26px; -unity-font-style: bold; color: var(--color-amber-100); }
+
+.gold {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 18px 8px 10px;
+    border-width: 1px;
+    border-color: var(--weave-border);
+    border-radius: 24px;
+    background-color: var(--weave-surface-raised);
+}
+
+.gold__icon { width: 32px; height: 32px; margin-right: 8px; background-image: url("Icons/coin.png"); -unity-background-scale-mode: scale-to-fit; }
+.gold__text { padding: 0; font-size: 24px; -unity-font-style: bold; color: var(--color-amber-400); }
+
+.coin { width: 16px; height: 16px; background-image: url("Icons/coin.png"); -unity-background-scale-mode: scale-to-fit; }
+
+/* Vendor Cards */
+
+.stock-card { flex-grow: 1; align-items: center; padding: 10px 8px 12px 8px; }
+.stock-card__icon { width: 76px; height: 76px; margin-bottom: 6px; -unity-background-scale-mode: scale-to-fit; }
+
+.stock-card__name {
+    height: 34px;
+    padding: 0;
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    color: var(--weave-text);
+}
+
+.stock-card__price { flex-direction: row; align-items: center; margin-top: 4px; }
+.stock-card__price-text { margin-left: 4px; padding: 0; font-size: 15px; -unity-font-style: bold; }
+
+.rarity-strip {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 3px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+/* Bag Pieces */
+
+.bag-item__icon { flex-grow: 1; margin: 6px; -unity-background-scale-mode: scale-to-fit; }
+
+/* Details */
+
+.details {
+    width: 380px;
+    height: 516px;
+    margin-top: 25px;
+    padding: 24px;
+    border-width: 1px;
+    border-color: var(--weave-border);
+    border-radius: 16px;
+    background-color: var(--weave-surface-raised);
+}
+
+.details__icon {
+    height: 168px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background-color: var(--weave-surface);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.details__name { padding: 0; font-size: 24px; -unity-font-style: bold; white-space: normal; color: var(--weave-text); }
+.details__summary { margin-top: 4px; padding: 0; font-size: 14px; color: var(--weave-text-muted); }
+.details__description { margin-top: 16px; padding: 0; font-size: 15px; white-space: normal; color: var(--weave-text); }
+
+/* Purchase Dialog */
+
+.confirm__icon {
+    width: 88px;
+    height: 88px;
+    border-radius: 12px;
+    background-color: var(--weave-surface-raised);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.confirm__price { padding: 0; font-size: 18px; -unity-font-style: bold; color: var(--color-amber-400); }

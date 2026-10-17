@@ -1,0 +1,14 @@
+{
+    "name": "WeaveUI.Samples.SettingsMenu",
+    "rootNamespace": "WeaveUI.Samples.SettingsMenu",
+    "references": ["WeaveUI"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

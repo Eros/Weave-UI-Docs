@@ -1,0 +1,376 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+    <Style src="Settings.uss" />
+
+    <ui:VisualElement name="background" class="flex-1 items-center justify-center bg-slate-100 dark:bg-slate-950">
+        <ui:VisualElement name="card" class="panel settings">
+
+            <ui:VisualElement class="flex-row items-end mb-4">
+                <ui:Label text="Settings" class="title flex-1 mb-0" />
+                <ui:Label text="Changes preview live" class="text-sm text-slate-500 dark:text-slate-400 mb-1" />
+            </ui:VisualElement>
+
+            <weave:TabView name="tabs" class="settings__tabs">
+                <ui:Tab label="Audio">
+                    <ui:ScrollView class="flex-1">
+                        <ui:Label text="VOLUME" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <Bindings>
+                                <ui:DataBinding property="enabledSelf" data-source-path="AudioEnabled" binding-mode="ToTarget" />
+                            </Bindings>
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Master volume" class="setting-row__name" />
+                                <ui:Label text="Scales every other channel." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="master" low-value="0" high-value="100" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Master" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="MasterText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <Bindings>
+                                <ui:DataBinding property="enabledSelf" data-source-path="AudioEnabled" binding-mode="ToTarget" />
+                            </Bindings>
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Music" class="setting-row__name" />
+                                <ui:Label text="Soundtrack and ambient themes." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="music" low-value="0" high-value="100" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Music" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="MusicText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <Bindings>
+                                <ui:DataBinding property="enabledSelf" data-source-path="AudioEnabled" binding-mode="ToTarget" />
+                            </Bindings>
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Effects" class="setting-row__name" />
+                                <ui:Label text="Combat, footsteps and the world around you." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="effects" low-value="0" high-value="100" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Effects" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="EffectsText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <Bindings>
+                                <ui:DataBinding property="enabledSelf" data-source-path="AudioEnabled" binding-mode="ToTarget" />
+                            </Bindings>
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Voice" class="setting-row__name" />
+                                <ui:Label text="Dialogue and barks." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="voice" low-value="0" high-value="100" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Voice" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="VoiceText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="OUTPUT" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Mute all" class="setting-row__name" />
+                                <ui:Label text="Silences the game but keeps your levels." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="mute" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Mute" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                </ui:Tab>
+                <ui:Tab label="Video">
+                    <ui:ScrollView class="flex-1">
+                        <ui:Label text="DISPLAY" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Resolution" class="setting-row__name" />
+                                <ui:Label text="Rendering resolution of the game view." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Dropdown name="resolution" choices="1280 × 720,1920 × 1080,2560 × 1440,3840 × 2160" class="setting-row__dropdown">
+                                    <Bindings>
+                                        <ui:DataBinding property="index" data-source-path="Resolution" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Dropdown>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Window mode" class="setting-row__name" />
+                                <ui:Label text="Borderless is fastest to alt-tab out of." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Dropdown name="window-mode" choices="Fullscreen,Borderless window,Windowed" class="setting-row__dropdown">
+                                    <Bindings>
+                                        <ui:DataBinding property="index" data-source-path="WindowMode" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Dropdown>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Brightness" class="setting-row__name" />
+                                <ui:Label text="Adjust until the logo on the title screen is barely visible." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="brightness" low-value="0" high-value="100" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Brightness" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="BrightnessText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="PERFORMANCE" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Graphics quality" class="setting-row__name" />
+                                <ui:Label text="Shadows, draw distance and effects." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Dropdown name="quality" choices="Low,Medium,High,Ultra" change="QualityChanged" class="setting-row__dropdown">
+                                    <Bindings>
+                                        <ui:DataBinding property="index" data-source-path="Quality" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Dropdown>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Vertical sync" class="setting-row__name" />
+                                <ui:Label text="Removes tearing; caps the frame rate at your refresh rate." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="vsync" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="VSync" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <Bindings>
+                                <ui:DataBinding property="enabledSelf" data-source-path="FrameCapEnabled" binding-mode="ToTarget" />
+                            </Bindings>
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Frame rate cap" class="setting-row__name" />
+                                <ui:Label text="Only used when vertical sync is off." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="frame-cap" low-value="30" high-value="240" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="FrameCap" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="FrameCapText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Field of view" class="setting-row__name" />
+                                <ui:Label text="Wider shows more; narrower feels closer." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="fov" low-value="60" high-value="110" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="FieldOfView" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="FieldOfViewText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                </ui:Tab>
+                <ui:Tab label="Controls">
+                    <ui:ScrollView class="flex-1">
+                        <ui:Label text="MOUSE AND CONTROLLER" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Look sensitivity" class="setting-row__name" />
+                                <ui:Label text="How far the camera turns per inch of mouse movement." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Slider name="sensitivity" low-value="1" high-value="100" class="setting-row__slider">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Sensitivity" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Slider>
+                                <ui:Label class="setting-row__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="SensitivityText" binding-mode="ToTarget" />
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Invert vertical look" class="setting-row__name" />
+                                <ui:Label text="Push forward to look down." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="invert-y" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="InvertY" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Controller vibration" class="setting-row__name" />
+                                <ui:Label text="Rumble on hits, explosions and heavy landings." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="vibration" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Vibration" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="KEY BINDINGS" class="section-heading" />
+                        <ui:Label text="Click a key, then press the new one. Esc cancels." class="setting-row__hint ml-1 mb-2" />
+                        <ui:VisualElement name="bindings" />
+                    </ui:ScrollView>
+                </ui:Tab>
+                <ui:Tab label="Accessibility">
+                    <ui:ScrollView class="flex-1">
+                        <ui:Label text="SUBTITLES" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Subtitles" class="setting-row__name" />
+                                <ui:Label text="Show dialogue as text." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="subtitles" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="Subtitles" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Subtitle size" class="setting-row__name" />
+                                <ui:Label text="Larger sizes add a background plate." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Dropdown name="subtitle-size" choices="Small,Medium,Large" class="setting-row__dropdown">
+                                    <Bindings>
+                                        <ui:DataBinding property="index" data-source-path="SubtitleSize" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Dropdown>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="VISION AND MOTION" class="section-heading" />
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Colour filter" class="setting-row__name" />
+                                <ui:Label text="Shifts the game's palette for colour vision deficiency." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Dropdown name="colour-filter" choices="Off,Protanopia,Deuteranopia,Tritanopia" class="setting-row__dropdown">
+                                    <Bindings>
+                                        <ui:DataBinding property="index" data-source-path="ColourFilter" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Dropdown>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Light theme" class="setting-row__name" />
+                                <ui:Label text="Switches this menu's palette as soon as you toggle it." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="light-theme" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="LightTheme" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row">
+                            <ui:VisualElement class="setting-row__text">
+                                <ui:Label text="Reduce motion" class="setting-row__name" />
+                                <ui:Label text="Turns off screen transitions." class="setting-row__hint" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="setting-row__control">
+                                <weave:Toggle name="reduce-motion" class="setting-row__toggle">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="ReduceMotion" binding-mode="TwoWay" />
+                                    </Bindings>
+                                </weave:Toggle>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                </ui:Tab>
+            </weave:TabView>
+
+            <ui:VisualElement class="flex-row items-center mt-6">
+                <ui:Label name="status" class="flex-1 text-sm text-amber-600 dark:text-amber-300">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Status" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+                <weave:Button name="defaults" text="Restore defaults" variant="ghost" click="AskDefaults" class="mr-2" />
+                <weave:Button name="revert" text="Revert" variant="secondary" click="Revert" class="mr-2">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="HasChanges" binding-mode="ToTarget" />
+                    </Bindings>
+                </weave:Button>
+                <weave:Button name="apply" text="Apply" variant="primary" click="Apply">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="HasChanges" binding-mode="ToTarget" />
+                    </Bindings>
+                </weave:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

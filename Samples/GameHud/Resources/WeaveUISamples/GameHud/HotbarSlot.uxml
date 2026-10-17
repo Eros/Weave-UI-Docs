@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <!-- One hotbar cell. Its data source is the slot's HotbarSlot; "key" is set per slot in HudScreen.BindSlot. -->
+    <ui:VisualElement class="flex-1">
+        <ui:VisualElement name="item" class="flex-1">
+            <Bindings>
+                <ui:DataBinding property="tooltip" data-source-path="Name" binding-mode="ToTarget" />
+            </Bindings>
+            <ui:VisualElement class="slot__icon" picking-mode="Ignore">
+                <Bindings>
+                    <ui:DataBinding property="style.backgroundImage" data-source-path="IconBackground" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:VisualElement>
+            <ui:VisualElement class="slot__cooldown" picking-mode="Ignore">
+                <Bindings>
+                    <ui:DataBinding property="style.height" data-source-path="CooldownHeight" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:VisualElement>
+            <ui:Label class="slot__count" picking-mode="Ignore">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="CountText" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:Label name="key" class="slot__key" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>

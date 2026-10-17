@@ -1,0 +1,14 @@
+{
+    "name": "WeaveUI.Samples.GameHud",
+    "rootNamespace": "WeaveUI.Samples.GameHud",
+    "references": ["WeaveUI"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

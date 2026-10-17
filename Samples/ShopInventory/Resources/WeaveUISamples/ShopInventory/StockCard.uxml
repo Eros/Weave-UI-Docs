@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <!-- One vendor slot. Its data source is the slot's Item. -->
+    <ui:VisualElement class="stock-card">
+        <Bindings>
+            <ui:DataBinding property="tooltip" data-source-path="Description" binding-mode="ToTarget" />
+        </Bindings>
+        <ui:VisualElement class="stock-card__icon" picking-mode="Ignore">
+            <Bindings>
+                <ui:DataBinding property="style.backgroundImage" data-source-path="IconBackground" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:VisualElement>
+        <ui:Label class="stock-card__name" picking-mode="Ignore">
+            <Bindings>
+                <ui:DataBinding property="text" data-source-path="Name" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:Label>
+        <ui:VisualElement class="stock-card__price" picking-mode="Ignore">
+            <ui:VisualElement class="coin" picking-mode="Ignore" />
+            <ui:Label class="stock-card__price-text" picking-mode="Ignore">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="PriceText" binding-mode="ToTarget" />
+                    <ui:DataBinding property="style.color" data-source-path="PriceColor" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement class="rarity-strip" picking-mode="Ignore">
+            <Bindings>
+                <ui:DataBinding property="style.backgroundColor" data-source-path="RarityColor" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

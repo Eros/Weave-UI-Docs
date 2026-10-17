@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+    <Style src="Shop.uss" />
+    <!-- The modal's data source is the Item being bought. -->
+    <ui:VisualElement class="modal__panel" style="width: 440px;">
+        <ui:Label text="Confirm purchase" class="modal__title" />
+        <ui:VisualElement class="flex-row items-center mb-6">
+            <ui:VisualElement class="confirm__icon mr-4">
+                <Bindings>
+                    <ui:DataBinding property="style.backgroundImage" data-source-path="IconBackground" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:VisualElement>
+            <ui:VisualElement class="flex-1">
+                <ui:Label class="details__name mb-1">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Name" binding-mode="ToTarget" />
+                        <ui:DataBinding property="style.color" data-source-path="RarityColor" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+                <ui:VisualElement class="flex-row items-center">
+                    <ui:VisualElement class="coin mr-1" />
+                    <ui:Label class="confirm__price">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="PriceText" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="modal__actions">
+            <weave:Button name="cancel" text="Not today" variant="ghost" click="Cancel" />
+            <weave:Button name="confirm" text="Buy it" variant="primary" click="Confirm" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

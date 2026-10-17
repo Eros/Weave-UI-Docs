@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+    <!-- modal__panel, modal__title, ... are Weave's built-in dialog styles; the screen root is the backdrop. -->
+    <ui:VisualElement class="modal__panel" style="width: 460px;">
+        <ui:Label name="title" class="modal__title" />
+        <ui:Label name="body" class="modal__body" />
+        <ui:VisualElement class="modal__actions">
+            <weave:Button name="cancel" text="Cancel" variant="ghost" click="Cancel" />
+            <weave:Button name="confirm" variant="danger" click="Confirm" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

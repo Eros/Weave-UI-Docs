@@ -1,0 +1,14 @@
+{
+    "name": "WeaveUI.Samples.ShopInventory",
+    "rootNamespace": "WeaveUI.Samples.ShopInventory",
+    "references": ["WeaveUI"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
