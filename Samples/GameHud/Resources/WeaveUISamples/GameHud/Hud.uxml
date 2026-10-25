@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="Nerdova.WeaveUI">
     <Style src="Hud.uss" />
 
     <!-- The HUD ignores the pointer except where it's interactive (the hotbar), so clicks reach the game. -->

@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="Nerdova.WeaveUI">
     <!-- modal__panel, modal__title, ... are Weave's built-in dialog styles; the screen root is the backdrop. -->
     <ui:VisualElement class="modal__panel" style="width: 460px;">
         <ui:Label name="title" class="modal__title" />

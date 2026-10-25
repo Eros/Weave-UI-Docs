@@ -4,7 +4,7 @@ using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace WeaveUI.Samples.SettingsMenu
+namespace Nerdova.WeaveUI.Samples.SettingsMenu
 {
     /// <summary>The saved settings: plain serialisable fields, so JsonUtility can store them and compare two copies.</summary>
     [Serializable]
@@ -26,13 +26,17 @@ namespace WeaveUI.Samples.SettingsMenu
         public string ToJson() => JsonUtility.ToJson(this);
     }
 
+    /// <summary>
+    /// The settings screen's data source. Every control binds two-way to a property here; edits go into a working copy
+    /// and <see cref="HasChanges"/> compares it with the applied one, which enables Apply and Revert.
+    /// </summary>
     public sealed class SettingsViewModel : ViewModel
     {
         const string PrefsKey = "weave-ui-sample-settings";
 
-        private SettingsData _applied;
-        private SettingsData _edit;
-        private string _status = "Changes preview live. Apply keeps them; Revert undoes them.";
+        SettingsData _applied;
+        SettingsData _edit;
+        string _status = "Changes preview live. Apply keeps them; Revert undoes them.";
 
         public SettingsViewModel()
         {
@@ -41,7 +45,7 @@ namespace WeaveUI.Samples.SettingsMenu
             _edit = _applied.Clone();
         }
 
-        // Audio
+        // ---------- audio (dropdown choices live in Settings.uxml; the dropdowns bind their index)
 
         [CreateProperty] public float Master { get => _edit.master; set => Set(ref _edit.master, value, nameof(MasterText)); }
         [CreateProperty] public string MasterText => Percent(_edit.master);
@@ -56,7 +60,7 @@ namespace WeaveUI.Samples.SettingsMenu
         /// <summary>The volume sliders are disabled while muted.</summary>
         [CreateProperty] public bool AudioEnabled => !_edit.mute;
 
-        // Video
+        // ---------- video
 
         [CreateProperty] public int Resolution { get => _edit.resolution; set => Set(ref _edit.resolution, value); }
         [CreateProperty] public int WindowMode { get => _edit.windowMode; set => Set(ref _edit.windowMode, value); }
@@ -70,7 +74,7 @@ namespace WeaveUI.Samples.SettingsMenu
         [CreateProperty] public float Brightness { get => _edit.brightness; set => Set(ref _edit.brightness, value, nameof(BrightnessText)); }
         [CreateProperty] public string BrightnessText => Percent(_edit.brightness);
 
-        // Controls
+        // ---------- controls
 
         [CreateProperty] public float Sensitivity { get => _edit.sensitivity; set => Set(ref _edit.sensitivity, value, nameof(SensitivityText)); }
         [CreateProperty] public string SensitivityText => $"{_edit.sensitivity / 20:0.0}×";
@@ -90,7 +94,7 @@ namespace WeaveUI.Samples.SettingsMenu
             new KeyBinding("Inventory", KeyCode.Tab),
         };
 
-        // Accessibility
+        // ---------- accessibility
 
         [CreateProperty] public bool Subtitles { get => _edit.subtitles; set => Set(ref _edit.subtitles, value); }
         [CreateProperty] public int SubtitleSize { get => _edit.subtitleSize; set => Set(ref _edit.subtitleSize, value); }
@@ -98,7 +102,7 @@ namespace WeaveUI.Samples.SettingsMenu
         [CreateProperty] public bool LightTheme { get => _edit.lightTheme; set => Set(ref _edit.lightTheme, value); }
         [CreateProperty] public bool ReduceMotion { get => _edit.reduceMotion; set => Set(ref _edit.reduceMotion, value); }
 
-        // Footer
+        // ---------- footer
 
         [CreateProperty]
         public bool HasChanges => _edit.ToJson() != _applied.ToJson();
@@ -146,16 +150,12 @@ namespace WeaveUI.Samples.SettingsMenu
         void Set<T>(ref T field, T value, string dependant = null, [System.Runtime.CompilerServices.CallerMemberName] string property = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
-            {
                 return;
-            }
 
             field = value;
             Notify(property);
             if (dependant != null)
-            {
                 Notify(dependant);
-            }
             Notify(nameof(HasChanges));
             Notify(nameof(Status));
         }
@@ -164,14 +164,12 @@ namespace WeaveUI.Samples.SettingsMenu
         void NotifyAll()
         {
             foreach (var property in AllProperties)
-            {
                 Notify(property);
-            }
         }
 
         static string Percent(float value) => $"{value:0}%";
 
-        private static readonly string[] AllProperties =
+        static readonly string[] AllProperties =
         {
             nameof(Master), nameof(MasterText), nameof(Music), nameof(MusicText), nameof(Effects), nameof(EffectsText),
             nameof(Voice), nameof(VoiceText), nameof(Mute), nameof(AudioEnabled), nameof(Resolution), nameof(WindowMode),

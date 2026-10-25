@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.GameHud
+namespace Nerdova.WeaveUI.Samples.GameHud
 {
+    /// <summary>
+    /// A forest landscape so the HUD has something to sit on: Kenney's Background Elements Remastered (CC0), scaled to
+    /// cover the screen. Demo scaffolding only; in a game the camera renders behind the UI.
+    /// </summary>
     public static class DemoBackdrop
     {
         public static VisualElement Create()

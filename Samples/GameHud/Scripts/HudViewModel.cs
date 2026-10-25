@@ -4,7 +4,7 @@ using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.GameHud
+namespace Nerdova.WeaveUI.Samples.GameHud
 {
     /// <summary>A short message in the HUD's toast stack. Tone picks its accent colour (toast--gold, toast--level, ...).</summary>
     public readonly struct Toast
@@ -25,18 +25,22 @@ namespace WeaveUI.Samples.GameHud
         public bool Done { get; }
     }
 
+    /// <summary>
+    /// Everything the HUD shows. Hud.uxml binds to these properties by name; the game only calls methods such as
+    /// <see cref="TakeDamage"/> or <see cref="Use"/> and the bars, labels and slots follow.
+    /// </summary>
     public sealed class HudViewModel : ViewModel
     {
         const float MaxHealth = 120;
         const float MaxMana = 80;
         const float ManaPerSecond = 2.5f;
 
-        private float _health = 104;
-        private float _mana = 45;
-        private float _xp = 68;
-        private int _level = 12;
-        private int _gold = 1284;
-        private int _gems = 12;
+        float _health = 104;
+        float _mana = 45;
+        float _xp = 68;
+        int _level = 12;
+        int _gold = 1284;
+        int _gems = 12;
 
         /// <summary>Raised for anything worth a toast; the screen turns it into an element.</summary>
         public event Action<Toast> Toasted;
@@ -57,9 +61,7 @@ namespace WeaveUI.Samples.GameHud
             private set
             {
                 if (!SetProperty(ref _health, Mathf.Clamp(value, 0, MaxHealth)))
-                {
                     return;
-                }
 
                 Notify(nameof(HealthFill));
                 Notify(nameof(HealthText));
@@ -80,9 +82,7 @@ namespace WeaveUI.Samples.GameHud
             private set
             {
                 if (!SetProperty(ref _mana, Mathf.Clamp(value, 0, MaxMana)))
-                {
                     return;
-                }
 
                 Notify(nameof(ManaFill));
                 Notify(nameof(ManaText));
@@ -103,9 +103,7 @@ namespace WeaveUI.Samples.GameHud
             private set
             {
                 if (SetProperty(ref _xp, value))
-                {
                     Notify(nameof(XpTitle));
-                }
             }
         }
 
@@ -161,9 +159,7 @@ namespace WeaveUI.Samples.GameHud
             foreach (var slot in Hotbar)
             {
                 if (slot != null && slot.Cooldown > 0)
-                {
                     slot.Cooldown -= deltaTime;
-                }
             }
         }
 
@@ -197,9 +193,7 @@ namespace WeaveUI.Samples.GameHud
         {
             var slot = index >= 0 && index < Hotbar.Count ? Hotbar[index] : null;
             if (slot == null)
-            {
                 return;
-            }
 
             if (!slot.IsReady)
             {
@@ -209,13 +203,9 @@ namespace WeaveUI.Samples.GameHud
 
             slot.Cooldown = slot.CooldownSeconds;
             if (slot.IsConsumable)
-            {
                 slot.Count--;
-            }
             if (slot.Name == "Healing Draught")
-            {
                 Health += 30;
-            }
             if (slot.Name == "Starlit Sapphire")
             {
                 _gems++;

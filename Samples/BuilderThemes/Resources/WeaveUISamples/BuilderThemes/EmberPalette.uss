@@ -1,3 +1,8 @@
+/*
+ * Ember: a warm palette for the dark theme. ThemeService.Palette adds this sheet to the screen host's root (the
+ * .weave-root element), after the theme, so these values win. Swap it in or out at runtime; nothing else changes.
+ */
+
 .weave-root {
     --weave-primary: var(--color-orange-500);
     --weave-primary-hover: var(--color-orange-400);

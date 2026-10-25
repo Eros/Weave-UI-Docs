@@ -1,4 +1,10 @@
-/* Shared */
+/*
+ * Game HUD sample. Hud.uxml does layout, spacing and most colours with utility classes; this sheet holds what
+ * utilities can't express: translucent cards, bar fills, the minimap and compass, the hotbar's colours and the
+ * toast animation. Colours come from Weave's design tokens (var(--color-*)), the same palette the utilities use.
+ */
+
+/* ---------- shared */
 
 .hud-card {
     background-color: rgba(2, 6, 23, 0.72);
@@ -18,7 +24,7 @@
     color: var(--color-amber-300);
 }
 
-/* Player Frame */
+/* ---------- player frame */
 
 .portrait {
     width: 88px;
@@ -50,7 +56,8 @@
     -unity-text-align: middle-center;
 }
 
-/* Resource Bars */
+/* Resource bars. Both the fill and the white lag bar bind their width to the same percentage; the lag bar's
+   transition waits a moment and then catches up, so a hit shows how much health it took. */
 
 .bar {
     height: 22px;
@@ -93,7 +100,7 @@
 
 .bar--mana .bar__text { font-size: 11px; }
 
-/* XP Bar */
+/* The XP bar is a weave:ProgressBar recoloured by overriding Weave's semantic variables on it. */
 .hud-xp {
     margin: 4px 0 0 0;
     --weave-primary: var(--color-amber-400);
@@ -105,7 +112,7 @@
 .hud-xp .unity-progress-bar__progress { border-radius: 4px; }
 .hud-xp .unity-progress-bar__title { font-size: 11px; -unity-font-style: bold; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9); }
 
-/* Compass */
+/* ---------- compass */
 
 .compass {
     width: 560px;
@@ -130,7 +137,7 @@
     background-color: var(--color-amber-300);
 }
 
-/* Quest Marker */
+/* The quest is to the north-east: a small diamond on the strip */
 .compass__quest {
     position: absolute;
     left: 360px;
@@ -141,7 +148,7 @@
     background-color: var(--color-amber-400);
 }
 
-/* Currencies */
+/* ---------- currencies */
 
 .chip {
     flex-direction: row;
@@ -155,7 +162,7 @@
 .chip__icon--gem { background-image: url("Icons/gem.png"); }
 .chip__text { padding: 0; font-size: 18px; -unity-font-style: bold; color: var(--color-amber-100); }
 
-/* Minimap */
+/* ---------- minimap (220px circle; children are positioned inside its 3px border) */
 
 .minimap {
     width: 220px;
@@ -215,7 +222,7 @@
     color: var(--color-amber-200);
 }
 
-/* Quests */
+/* ---------- quests (rows built in HudScreen.QuestRow) */
 
 .quest-check {
     width: 14px;
@@ -228,7 +235,7 @@
 
 .quest-check--done { border-color: var(--color-slate-600); background-color: var(--color-slate-600); }
 
-/* Log */
+/* ---------- log (lines built in HudScreen) */
 
 .log-line {
     margin: 0;
@@ -238,7 +245,7 @@
     white-space: normal;
 }
 
-/* Interaction Prompt */
+/* ---------- interaction prompt */
 
 .key-chip {
     min-width: 28px;
@@ -255,7 +262,7 @@
     -unity-text-align: middle-center;
 }
 
-/* Hotbar */
+/* ---------- hotbar: a weave:Grid recoloured through Weave's semantic variables */
 
 .hotbar {
     --weave-surface: rgba(15, 23, 42, 0.85);
@@ -298,7 +305,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
-/* Toasts */
+/* ---------- toasts (built in HudScreen.ShowToast; toast--hidden is added and removed to animate) */
 
 .toast {
     min-width: 260px;

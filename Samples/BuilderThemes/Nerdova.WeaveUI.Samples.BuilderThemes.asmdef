@@ -1,7 +1,7 @@
 {
-    "name": "WeaveUI.Samples.ShopInventory",
-    "rootNamespace": "WeaveUI.Samples.ShopInventory",
-    "references": ["WeaveUI"],
+    "name": "Nerdova.WeaveUI.Samples.BuilderThemes",
+    "rootNamespace": "Nerdova.WeaveUI.Samples.BuilderThemes",
+    "references": ["Nerdova.WeaveUI"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

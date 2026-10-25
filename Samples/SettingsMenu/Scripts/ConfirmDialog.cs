@@ -2,15 +2,19 @@ using System;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.SettingsMenu
+namespace Nerdova.WeaveUI.Samples.SettingsMenu
 {
+    /// <summary>
+    /// A reusable yes/no dialog. As a <see cref="ModalScreen"/> it sits over the current screen with a backdrop:
+    /// clicking the backdrop, Escape or Cancel closes it; Confirm runs the action, then closes it.
+    /// </summary>
     [ScreenLayout("WeaveUISamples/SettingsMenu/Confirm")]
     public sealed class ConfirmDialog : ModalScreen
     {
-        private readonly string _title;
-        private readonly string _body;
-        private readonly string _confirm;
-        private readonly Action _onConfirm;
+        readonly string _title;
+        readonly string _body;
+        readonly string _confirm;
+        readonly Action _onConfirm;
 
         public ConfirmDialog(string title, string body, string confirm, Action onConfirm) =>
             (_title, _body, _confirm, _onConfirm) = (title, body, confirm, onConfirm);

@@ -3,8 +3,12 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace WeaveUI.Samples.BuilderThemes.Editor
+namespace Nerdova.WeaveUI.Samples.BuilderThemes.Editor
 {
+    /// <summary>
+    /// Builds a <see cref="UISkin"/> from Synty's INTERFACE - Fantasy Menus pack, which you import into your own project.
+    /// Synty's art isn't redistributable, so the sample ships only this script; the skin is written next to the pack.
+    /// </summary>
     public static class SyntySkinBuilder
     {
         private const string Prefix = "SPR_FantasyMenus_";
@@ -109,7 +113,7 @@ namespace WeaveUI.Samples.BuilderThemes.Editor
 
             EditorUtility.SetDirty(skin);
             AssetDatabase.SaveAssetIfDirty(skin);
-            WeaveUI.Editor.SkinUssGenerator.Generate(skin);
+            Nerdova.WeaveUI.Editor.SkinUssGenerator.Generate(skin);
             return $"Built {skinPath}.\n\nPress Play in the Builder Themes sample and pick Synty from the Skin dropdown.";
         }
 

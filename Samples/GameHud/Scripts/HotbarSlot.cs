@@ -2,13 +2,13 @@ using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.GameHud
+namespace Nerdova.WeaveUI.Samples.GameHud
 {
     /// <summary>One hotbar ability or consumable. The slot template (HotbarSlot.uxml) binds to its properties.</summary>
     public sealed class HotbarSlot : ViewModel
     {
-        private int _count;
-        private float _cooldown;
+        int _count;
+        float _cooldown;
 
         /// <param name="count">Uses for a consumable (it runs out); 0 for an ability (it never does).</param>
         public HotbarSlot(string name, string icon, float cooldownSeconds, int count = 0)
@@ -36,9 +36,7 @@ namespace WeaveUI.Samples.GameHud
             set
             {
                 if (SetProperty(ref _count, value))
-                {
                     Notify(nameof(CountText));
-                }
             }
         }
 
@@ -56,9 +54,7 @@ namespace WeaveUI.Samples.GameHud
             set
             {
                 if (SetProperty(ref _cooldown, Mathf.Max(0, value)))
-                {
                     Notify(nameof(CooldownHeight));
-                }
             }
         }
 

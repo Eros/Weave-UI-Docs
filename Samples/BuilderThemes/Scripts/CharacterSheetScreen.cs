@@ -1,14 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static WeaveUI.Ui;
+using static Nerdova.WeaveUI.Ui;
 
-namespace WeaveUI.Samples.BuilderThemes
+namespace Nerdova.WeaveUI.Samples.BuilderThemes
 {
+    /// <summary>
+    /// A character sheet built entirely in C# with the fluent builder: no UXML. Classes, variants, bindings and
+    /// handlers work exactly as they do in markup. Its stylesheet only uses Weave's semantic variables, so the theme
+    /// buttons (dark, light, the Ember palette, the art skin) restyle every part of it.
+    /// </summary>
     public sealed class CharacterSheetScreen : Screen<CharacterViewModel>
     {
-        private static readonly string[] Stances = { "Balanced", "Aggressive", "Defensive" };
-        private readonly Dictionary<ThemeChoice, WeaveButton> _segments = new();
+        static readonly string[] Stances = { "Balanced", "Aggressive", "Defensive" };
+
+        readonly Dictionary<ThemeChoice, WeaveButton> _segments = new();
 
         public CharacterSheetScreen(CharacterViewModel viewModel) : base(viewModel) { }
 
@@ -26,15 +32,17 @@ namespace WeaveUI.Samples.BuilderThemes
             return root;
         }
 
-        protected override void OnCreated()
+        // Subscribe while shown, not from OnCreated to OnClosed: OnCreated runs once, so a screen pushed again after
+        // closing would stay unsubscribed. OnShow also catches up on changes made while the screen was hidden.
+        protected override void OnShow()
         {
             ViewModel.propertyChanged += OnChanged;
             UpdateSegments();
         }
 
-        protected override void OnClosed() => ViewModel.propertyChanged -= OnChanged;
+        protected override void OnHide() => ViewModel.propertyChanged -= OnChanged;
 
-        // Crest, name, theme switcher
+        // ---------- header: crest, name, theme switcher
 
         VisualElement Header() =>
             Row().Class("items-center mb-6").Children(
@@ -58,7 +66,7 @@ namespace WeaveUI.Samples.BuilderThemes
             return button;
         }
 
-        // Columns
+        // ---------- columns
 
         VisualElement Attributes() =>
             Column("attributes").Class("sheet-column").Children(
@@ -113,23 +121,19 @@ namespace WeaveUI.Samples.BuilderThemes
                 Button("Refund points").Variant("ghost").Class("mr-2").OnClick(() => ViewModel.ResetPoints()),
                 Button("Confirm").Variant("primary").Bind(nameof(CharacterViewModel.HasSpent)).OnClick(() => ViewModel.Confirm()));
 
-        // Theme switcher state
+        // ---------- theme switcher state
 
         void OnChanged(object sender, BindablePropertyChangedEventArgs e)
         {
             if (e.propertyName == nameof(CharacterViewModel.Theme))
-            {
                 UpdateSegments();
-            }
         }
 
         /// <summary>The active theme's button becomes a primary button; the others are ghosts.</summary>
         void UpdateSegments()
         {
             foreach (var (choice, button) in _segments)
-            {
                 button.Variant(choice == ViewModel.Theme ? "primary" : "ghost");
-            }
         }
     }
 }

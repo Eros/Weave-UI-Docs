@@ -2,7 +2,7 @@ using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.ShopInventory
+namespace Nerdova.WeaveUI.Samples.ShopInventory
 {
     public enum Rarity
     {
@@ -13,9 +13,13 @@ namespace WeaveUI.Samples.ShopInventory
         Legendary,
     }
 
+    /// <summary>
+    /// An item for sale or in the bag. Both grids' cell templates (StockCard.uxml, BagItem.uxml) bind to these
+    /// properties. Items take <see cref="Size"/> slots in the bag.
+    /// </summary>
     public sealed class Item : ViewModel
     {
-        private static readonly Color[] RarityColors =
+        static readonly Color[] RarityColors =
         {
             new(0.58f, 0.64f, 0.72f),
             new(0.20f, 0.83f, 0.60f),
@@ -24,11 +28,11 @@ namespace WeaveUI.Samples.ShopInventory
             new(0.98f, 0.75f, 0.14f),
         };
 
-        private static readonly Color Affordable = new(0.99f, 0.83f, 0.30f);
-        private static readonly Color TooExpensive = new(0.98f, 0.44f, 0.52f);
+        static readonly Color Affordable = new(0.99f, 0.83f, 0.30f);
+        static readonly Color TooExpensive = new(0.98f, 0.44f, 0.52f);
 
-        private readonly string _icon;
-        private bool _canAfford = true;
+        readonly string _icon;
+        bool _canAfford = true;
 
         public Item(string icon, string name, Rarity rarity, int price, int width, int height, string description)
         {
@@ -62,9 +66,7 @@ namespace WeaveUI.Samples.ShopInventory
             set
             {
                 if (SetProperty(ref _canAfford, value))
-                {
                     Notify(nameof(PriceColor));
-                }
             }
         }
 

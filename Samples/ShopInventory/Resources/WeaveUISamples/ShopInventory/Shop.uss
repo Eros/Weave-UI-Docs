@@ -1,3 +1,9 @@
+/*
+ * Shop sample. Grid slots, drag highlights and the dialog come from Weave's controls; this sheet styles the cell
+ * templates (StockCard.uxml, BagItem.uxml), the details panel and the gold counter. Semantic variables keep it
+ * working in the light palette too.
+ */
+
 .shop { width: 1400px; }
 
 .section-heading {
@@ -9,7 +15,7 @@
     color: var(--weave-text-muted);
 }
 
-/* Header */
+/* ---------- header */
 
 .vendor-badge {
     width: 56px;
@@ -39,7 +45,7 @@
 
 .coin { width: 16px; height: 16px; background-image: url("Icons/coin.png"); -unity-background-scale-mode: scale-to-fit; }
 
-/* Vendor Cards */
+/* ---------- vendor cards */
 
 .stock-card { flex-grow: 1; align-items: center; padding: 10px 8px 12px 8px; }
 .stock-card__icon { width: 76px; height: 76px; margin-bottom: 6px; -unity-background-scale-mode: scale-to-fit; }
@@ -66,12 +72,13 @@
     border-radius: 2px;
 }
 
-/* Bag Pieces */
+/* ---------- bag pieces */
 
 .bag-item__icon { flex-grow: 1; margin: 6px; -unity-background-scale-mode: scale-to-fit; }
 
-/* Details */
+/* ---------- details */
 
+/* Starts level with the grids, below their section headings */
 .details {
     width: 380px;
     height: 516px;
@@ -95,7 +102,7 @@
 .details__summary { margin-top: 4px; padding: 0; font-size: 14px; color: var(--weave-text-muted); }
 .details__description { margin-top: 16px; padding: 0; font-size: 15px; white-space: normal; color: var(--weave-text); }
 
-/* Purchase Dialog */
+/* ---------- purchase dialog */
 
 .confirm__icon {
     width: 88px;

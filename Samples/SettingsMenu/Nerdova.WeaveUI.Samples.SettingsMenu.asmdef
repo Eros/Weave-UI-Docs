@@ -1,7 +1,7 @@
 {
-    "name": "WeaveUI.Samples.GameHud",
-    "rootNamespace": "WeaveUI.Samples.GameHud",
-    "references": ["WeaveUI"],
+    "name": "Nerdova.WeaveUI.Samples.SettingsMenu",
+    "rootNamespace": "Nerdova.WeaveUI.Samples.SettingsMenu",
+    "references": ["Nerdova.WeaveUI"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -12,6 +12,11 @@
 
 Coming soon, awaiting Unity approval.
 
+## Documentation
+
+The [documentation](Docs/README.md) covers every part of Weave UI: [getting started](Docs/getting-started.md),
+screens, data binding, interaction, styling, controls, the grid, the C# builder, theming and skins.
+
 ## Samples
 
 | | Sample | Shows |
@@ -62,35 +67,13 @@ public sealed class SettingsScreen : Screen<SettingsViewModel>
 ## Requirements
 
 - Unity 6000.3 or newer.
-- The Weave UI package (`Soon`)
+- The Weave UI package (`dev.nerdova.weaveui`), coming to the Unity Asset Store.
 
 The screenshots were captured in Unity 6000.4 at 1920 × 1080.
 
 ## Credits
 
-All art in these samples is pre-made by the artists below; none of it is AI-generated.
-
-### Item icons: game-icons.net
-
-Used in **Game HUD** (hotbar, currencies) and **Shop + inventory** (vendor, bag, gold counter), from
-`Resources/WeaveUISamples/<Sample>/Icons/`.
-
-| Used for | Icon | Author |
-|---|---|---|
-| Sword (Ashen Blade) | [broadsword](https://game-icons.net/1x1/lorc/broadsword.html) | Lorc |
-| Axe (Woodsman's Axe) | [battle-axe](https://game-icons.net/1x1/lorc/battle-axe.html) | Lorc |
-| Bow (Willow Longbow) | [pocket-bow](https://game-icons.net/1x1/lorc/pocket-bow.html) | Lorc |
-| Shield (Kite Shield) | [checked-shield](https://game-icons.net/1x1/lorc/checked-shield.html) | Lorc |
-| Helmet (Crown of Thorns) | [visored-helm](https://game-icons.net/1x1/lorc/visored-helm.html) | Lorc |
-| Potion (Healing Draught) | [round-bottom-flask](https://game-icons.net/1x1/lorc/round-bottom-flask.html) | Lorc |
-| Gem (Starlit Sapphire) | [cut-diamond](https://game-icons.net/1x1/lorc/cut-diamond.html) | Lorc |
-| Scroll (Scroll of Return) | [scroll-unfurled](https://game-icons.net/1x1/lorc/scroll-unfurled.html) | Lorc |
-| Gold coins | [two-coins](https://game-icons.net/1x1/delapouite/two-coins.html) | Delapouite |
-| Ring (Ring of Echoes) | [diamond-ring](https://game-icons.net/1x1/delapouite/diamond-ring.html) | Delapouite |
-
-- **Source:** [game-icons.net](https://game-icons.net)
-- **Licence:** [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
-- **Changes:** each icon was recoloured from white to one solid colour and resized to 128 × 128 px with a small margin.
+All the art in these samples is pre-made by Kenney; none of it is AI-generated.
 
 ### Kenney
 
@@ -100,6 +83,7 @@ but it's given here with thanks.
 | Pack | Used in | Changes |
 |---|---|---|
 | [Background Elements Remastered](https://kenney.nl/assets/background-elements-remastered) (`backgroundColorForest.png`) | **Game HUD**: the scene behind the HUD, `Resources/WeaveUISamples/GameHud/Backdrop.png` | None to the file; the sample tints it darker at runtime |
+| [1-Bit Pack](https://kenney.nl/assets/1-bit-pack) | **Game HUD** and **Shop + inventory**: the item and currency icons, `Resources/WeaveUISamples/<Sample>/Icons/` | Cut from the tilesheets and enlarged 4x |
 | [UI Pack (RPG Expansion)](https://kenney.nl/assets/ui-pack-rpg-expansion) | **Builder + themes**: the *Kenney* skin, which comes from Weave UI's Basic Menu sample | Hover and focus states lightened, the bar pieces joined into one sprite, the checkbox tick placed on its box |
 
 By [Kenney](https://kenney.nl) (Kenney Vleugels).

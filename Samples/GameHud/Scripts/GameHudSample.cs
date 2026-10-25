@@ -1,12 +1,16 @@
 using UnityEngine;
 
-namespace WeaveUI.Samples.GameHud
+namespace Nerdova.WeaveUI.Samples.GameHud
 {
+    /// <summary>
+    /// The sample's only component. It puts a painted backdrop behind the screens (standing in for your game's camera),
+    /// pushes the HUD, and fakes a little gameplay so the bars, gold and toasts move.
+    /// </summary>
     [RequireComponent(typeof(ScreenHost))]
     public sealed class GameHudSample : MonoBehaviour
     {
-        private HudViewModel _hud;
-        private float _nextEvent;
+        HudViewModel _hud;
+        float _nextEvent;
 
         void Start()
         {
@@ -20,9 +24,7 @@ namespace WeaveUI.Samples.GameHud
         {
             _hud.Tick(Time.deltaTime);
             if (Time.time < _nextEvent)
-            {
                 return;
-            }
 
             _nextEvent = Time.time + Random.Range(2f, 4f);
             switch (Random.Range(0, 3))

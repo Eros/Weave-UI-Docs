@@ -2,13 +2,18 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.ShopInventory
+namespace Nerdova.WeaveUI.Samples.ShopInventory
 {
+    /// <summary>
+    /// A vendor and the player's bag. Both grids use <c>drag="manual"</c>: the grids still validate each drop (does it
+    /// fit, can you afford it) and highlight the target, but the handlers below decide what a drop means: vendor → bag
+    /// buys a copy, bag → vendor sells, bag → bag moves. Handlers ask for the values they need and get them injected.
+    /// </summary>
     [ScreenLayout("WeaveUISamples/ShopInventory/Shop")]
     public sealed class ShopScreen : Screen<ShopViewModel>
     {
-        private WeaveGrid _vendor;
-        private WeaveGrid _bag;
+        WeaveGrid _vendor;
+        WeaveGrid _bag;
 
         public ShopScreen(ShopViewModel viewModel) : base(viewModel) { }
 
@@ -43,13 +48,9 @@ namespace WeaveUI.Samples.ShopInventory
             var item = (Item)drag.SourceItem;
             var (x, y) = (slot % ViewModel.Bag.Width, slot / ViewModel.Bag.Width);
             if (drag.Source == _vendor)
-            {
                 ViewModel.Buy(item, x, y);
-            }
             else
-            {
                 ViewModel.Move(item, x, y);
-            }
         }
 
         [OnDrop("vendor")]
@@ -66,18 +67,12 @@ namespace WeaveUI.Samples.ShopInventory
         {
             var item = ViewModel.Selected;
             if (item == null)
-            {
                 return;
-            }
 
             if (ViewModel.SelectedIsStock)
-            {
                 Buy(item);
-            }
             else
-            {
                 ViewModel.Sell(item);
-            }
         }
 
         /// <summary>Expensive purchases go through a modal confirmation first.</summary>

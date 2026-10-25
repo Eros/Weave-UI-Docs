@@ -2,13 +2,13 @@ using System.Text.RegularExpressions;
 using Unity.Properties;
 using UnityEngine;
 
-namespace WeaveUI.Samples.SettingsMenu
+namespace Nerdova.WeaveUI.Samples.SettingsMenu
 {
     /// <summary>One rebindable action. The key button binds its text to <see cref="KeyText"/>.</summary>
     public sealed class KeyBinding : ViewModel
     {
-        private KeyCode _key;
-        private bool _listening;
+        KeyCode _key;
+        bool _listening;
 
         public KeyBinding(string action, KeyCode key) => (Action, _key) = (action, key);
 
@@ -21,9 +21,7 @@ namespace WeaveUI.Samples.SettingsMenu
             set
             {
                 if (SetProperty(ref _key, value))
-                {
                     Notify(nameof(KeyText));
-                }
             }
         }
 
@@ -34,9 +32,7 @@ namespace WeaveUI.Samples.SettingsMenu
             set
             {
                 if (SetProperty(ref _listening, value))
-                {
                     Notify(nameof(KeyText));
-                }
             }
         }
 
@@ -48,9 +44,7 @@ namespace WeaveUI.Samples.SettingsMenu
         {
             var name = key.ToString();
             if (name.StartsWith("Alpha"))
-            {
                 return name.Substring(5);
-            }
             return Regex.Replace(name, "(?<=[a-z])(?=[A-Z0-9])", " ");
         }
     }

@@ -1,7 +1,7 @@
 {
-    "name": "WeaveUI.Samples.BuilderThemes.Editor",
-    "rootNamespace": "WeaveUI.Samples.BuilderThemes.Editor",
-    "references": ["WeaveUI", "WeaveUI.Editor"],
+    "name": "Nerdova.WeaveUI.Samples.BuilderThemes.Editor",
+    "rootNamespace": "Nerdova.WeaveUI.Samples.BuilderThemes.Editor",
+    "references": ["Nerdova.WeaveUI", "Nerdova.WeaveUI.Editor"],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

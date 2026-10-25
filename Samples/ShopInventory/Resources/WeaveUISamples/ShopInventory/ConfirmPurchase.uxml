@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="Nerdova.WeaveUI">
     <Style src="Shop.uss" />
     <!-- The modal's data source is the Item being bought. -->
     <ui:VisualElement class="modal__panel" style="width: 440px;">

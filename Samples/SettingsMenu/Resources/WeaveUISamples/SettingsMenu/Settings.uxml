@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="WeaveUI">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:weave="Nerdova.WeaveUI">
     <Style src="Settings.uss" />
 
     <ui:VisualElement name="background" class="flex-1 items-center justify-center bg-slate-100 dark:bg-slate-950">

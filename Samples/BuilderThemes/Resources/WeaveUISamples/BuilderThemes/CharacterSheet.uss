@@ -1,3 +1,10 @@
+/*
+ * Character sheet sample. Every colour here is one of Weave's semantic variables (--weave-surface, --weave-text,
+ * --weave-primary, ...), never a fixed colour. That's what lets ThemeService restyle the whole sheet: the light mode
+ * and the Ember palette only change variable values.
+ */
+
+/* The page behind the card: palettes can set --sheet-page, otherwise it follows light/dark mode. */
 .sheet { background-color: var(--sheet-page, var(--color-slate-950)); }
 .theme-light .sheet { background-color: var(--sheet-page, var(--color-slate-200)); }
 
@@ -15,7 +22,7 @@
 
 .status { font-size: 14px; color: var(--weave-text-muted); }
 
-/* Header */
+/* ---------- header */
 
 .crest {
     width: 64px;
@@ -30,7 +37,7 @@
 
 .crest__initial { padding: 0; font-size: 30px; -unity-font-style: bold; color: var(--weave-primary); }
 
-/* Theme switcher */
+/* The theme switcher: three small buttons in a pill */
 .segments {
     flex-direction: row;
     padding: 4px;
@@ -42,11 +49,11 @@
 
 .segment { min-width: 76px; margin: 0 2px; }
 
-/* Unity Base Field Labels */
+/* Unity gives field labels a minimum width for form layouts; next to the switcher the label should hug its text */
 .compact-field { width: 190px; margin: 0; }
 .compact-field .unity-base-field__label { min-width: 0; margin-right: 10px; }
 
-/* Columns */
+/* ---------- columns */
 
 .sheet-column {
     flex-grow: 1;
@@ -60,7 +67,7 @@
 
 .points { padding: 0; font-size: 13px; -unity-font-style: bold; color: var(--weave-primary); }
 
-/* Attributes */
+/* ---------- attributes */
 
 .stat__name { padding: 0; font-size: 15px; -unity-font-style: bold; color: var(--weave-text); }
 .stat__value { padding: 0; font-size: 15px; color: var(--weave-text); }
@@ -84,7 +91,7 @@
 
 .stat__step { min-width: 36px; margin: 0; padding: 0; }
 
-/* Derived Figures */
+/* ---------- derived figures */
 
 .figure {
     flex-direction: row;
@@ -97,7 +104,7 @@
 .figure > Label { padding: 0; font-size: 15px; }
 .figure__value { -unity-font-style: bold; color: var(--weave-text); }
 
-/* Synty Skin */
+/* ---------- skin tweaks: Synty's button art is a wide menu button, so the small +/- buttons draw it smaller */
 
 .skin-synty-fantasy .sheet .stat__step,
 .skin-synty-fantasy .sheet .stat__step:hover,

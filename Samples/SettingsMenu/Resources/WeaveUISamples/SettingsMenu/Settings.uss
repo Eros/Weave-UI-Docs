@@ -1,9 +1,14 @@
+/*
+ * Settings menu sample. Colours use Weave's semantic variables (--weave-text, --weave-border, ...), so the whole
+ * menu follows ThemeService's light and dark palettes without a single dark: class in this file.
+ */
+
 .settings { width: 1040px; }
 
 .settings__tabs { height: 660px; }
 .settings__tabs .unity-tab__content-container { padding-top: 8px; }
 
-/* Scrollbar */
+/* A slim scrollbar in the theme's colours instead of Unity's default arrows and grey track */
 .settings__tabs .unity-scroller--vertical { width: 8px; margin-left: 8px; border-width: 0; background-color: rgba(0, 0, 0, 0); }
 .settings__tabs .unity-scroller__low-button, .settings__tabs .unity-scroller__high-button { display: none; }
 .settings__tabs .unity-scroller__slider { margin: 0; }
@@ -19,7 +24,7 @@
     color: var(--weave-primary);
 }
 
-/* Setting Rows */
+/* One setting: name and hint on the left, the control in a fixed-width column on the right */
 
 .setting-row {
     flex-direction: row;
@@ -56,10 +61,10 @@
     color: var(--weave-text);
 }
 
-/* Disabled Rows */
+/* Disabled rows (muted audio, frame cap with vsync on) fade as a whole */
 .setting-row:disabled { opacity: 0.45; }
 
-/* Keycaps */
+/* Key binding buttons look like keycaps */
 
 .keycap {
     min-width: 140px;

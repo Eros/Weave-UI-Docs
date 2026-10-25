@@ -1,14 +1,19 @@
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
-using static WeaveUI.Ui;
+using static Nerdova.WeaveUI.Ui;
 
-namespace WeaveUI.Samples.SettingsMenu
+namespace Nerdova.WeaveUI.Samples.SettingsMenu
 {
+    /// <summary>
+    /// A tabbed settings menu. Every control in Settings.uxml binds two-way to <see cref="SettingsViewModel"/>, and the
+    /// footer's Apply and Revert buttons bind their enabled state to <see cref="SettingsViewModel.HasChanges"/>.
+    /// The key binding rows are built in C# and rebound by pressing a key.
+    /// </summary>
     [ScreenLayout("WeaveUISamples/SettingsMenu/Settings")]
     public sealed class SettingsScreen : Screen<SettingsViewModel>
     {
-        private KeyBinding _listening;
+        KeyBinding _listening;
 
         public SettingsScreen(SettingsViewModel viewModel) : base(viewModel) { }
 
@@ -25,9 +30,7 @@ namespace WeaveUI.Samples.SettingsMenu
         protected override bool OnBack()
         {
             if (_listening == null)
-            {
                 return false;
-            }
 
             StopListening();
             return true;
@@ -65,18 +68,14 @@ namespace WeaveUI.Samples.SettingsMenu
         void StopListening()
         {
             if (_listening != null)
-            {
                 _listening.Listening = false;
-            }
             _listening = null;
         }
 
         void OnKeyDown(KeyDownEvent evt)
         {
             if (_listening == null || evt.keyCode == KeyCode.None || evt.keyCode == KeyCode.Escape)
-            {
                 return;
-            }
 
             _listening.Key = evt.keyCode;
             StopListening();

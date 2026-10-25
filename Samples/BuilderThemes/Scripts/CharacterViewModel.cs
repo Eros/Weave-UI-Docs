@@ -3,7 +3,7 @@ using System.Linq;
 using Unity.Properties;
 using UnityEngine.UIElements;
 
-namespace WeaveUI.Samples.BuilderThemes
+namespace Nerdova.WeaveUI.Samples.BuilderThemes
 {
     public enum ThemeChoice
     {
@@ -17,8 +17,8 @@ namespace WeaveUI.Samples.BuilderThemes
     {
         const int Max = 20;
 
-        private readonly CharacterViewModel _owner;
-        private int _value;
+        readonly CharacterViewModel _owner;
+        int _value;
 
         public Stat(CharacterViewModel owner, string name, int value)
         {
@@ -36,9 +36,7 @@ namespace WeaveUI.Samples.BuilderThemes
             set
             {
                 if (!SetProperty(ref _value, value))
-                {
                     return;
-                }
 
                 Notify(nameof(ValueText));
                 Notify(nameof(Fill));
@@ -62,16 +60,20 @@ namespace WeaveUI.Samples.BuilderThemes
         internal void PointsChanged() => Notify(nameof(CanIncrease));
     }
 
+    /// <summary>
+    /// A character sheet: attributes with points to spend, stats derived from them, a few preferences, and the theme
+    /// the sample shows the sheet in (applied by BuilderThemesSample).
+    /// </summary>
     public sealed class CharacterViewModel : ViewModel
     {
-        private int _points = 3;
-        private string _stance = "Balanced";
-        private bool _autoLoot = true;
-        private float _companionDistance = 4;
-        private string _epithet = "Lantern-bearer";
-        private string _status = "Spend your points, then confirm. The buttons above restyle every control.";
-        private ThemeChoice _theme;
-        private string _skin = "None";
+        int _points = 3;
+        string _stance = "Balanced";
+        bool _autoLoot = true;
+        float _companionDistance = 4;
+        string _epithet = "Lantern-bearer";
+        string _status = "Spend your points, then confirm. The buttons above restyle every control.";
+        ThemeChoice _theme;
+        string _skin = "None";
 
         public CharacterViewModel()
         {
@@ -87,9 +89,7 @@ namespace WeaveUI.Samples.BuilderThemes
                 stat.propertyChanged += (_, e) =>
                 {
                     if (e.propertyName == nameof(Stat.Value))
-                    {
                         NotifyDerived();
-                    }
                 };
             }
         }
@@ -106,16 +106,12 @@ namespace WeaveUI.Samples.BuilderThemes
             private set
             {
                 if (!SetProperty(ref _points, value))
-                {
                     return;
-                }
 
                 Notify(nameof(PointsText));
                 Notify(nameof(HasSpent));
                 foreach (var stat in Stats)
-                {
                     stat.PointsChanged();
-                }
             }
         }
 
@@ -125,14 +121,14 @@ namespace WeaveUI.Samples.BuilderThemes
         /// <summary>Confirm is enabled once a point has been spent.</summary>
         [CreateProperty] public bool HasSpent => Stats.Any(s => s.Value != s.Base);
 
-        // Derived stats
+        // ---------- derived stats
 
         [CreateProperty] public string HealthText => $"{80 + 12 * Strength.Value}";
         [CreateProperty] public string ManaText => $"{40 + 10 * Intellect.Value}";
         [CreateProperty] public string CritText => $"{5 + 1.5f * Agility.Value:0.#}%";
         [CreateProperty] public string CarryText => $"{40 + 5 * Strength.Value} kg";
 
-        // Preferences
+        // ---------- preferences (bound two-way)
 
         [CreateProperty] public string Stance { get => _stance; set => SetProperty(ref _stance, value); }
         [CreateProperty] public bool AutoLoot { get => _autoLoot; set => SetProperty(ref _autoLoot, value); }
@@ -145,9 +141,7 @@ namespace WeaveUI.Samples.BuilderThemes
             set
             {
                 if (SetProperty(ref _epithet, value))
-                {
                     Notify(nameof(Subtitle));
-                }
             }
         }
 
@@ -158,7 +152,7 @@ namespace WeaveUI.Samples.BuilderThemes
             private set => SetProperty(ref _status, value);
         }
 
-        // Theme and skin settings
+        // ---------- how the sheet is shown
 
         public ThemeChoice Theme
         {
@@ -176,14 +170,12 @@ namespace WeaveUI.Samples.BuilderThemes
             set => SetProperty(ref _skin, value);
         }
 
-        // Actions
+        // ---------- actions
 
         public void Increase(Stat stat)
         {
             if (!stat.CanIncrease)
-            {
                 return;
-            }
 
             stat.Value++;
             Points--;
@@ -192,9 +184,7 @@ namespace WeaveUI.Samples.BuilderThemes
         public void Decrease(Stat stat)
         {
             if (!stat.CanDecrease)
-            {
                 return;
-            }
 
             stat.Value--;
             Points++;
@@ -214,9 +204,7 @@ namespace WeaveUI.Samples.BuilderThemes
         public void Confirm()
         {
             foreach (var stat in Stats)
-            {
                 stat.Commit();
-            }
             Notify(nameof(HasSpent));
             Status = "Attributes confirmed.";
         }

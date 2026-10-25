@@ -1,7 +1,7 @@
 {
-    "name": "WeaveUI.Samples.BuilderThemes",
-    "rootNamespace": "WeaveUI.Samples.BuilderThemes",
-    "references": ["WeaveUI"],
+    "name": "Nerdova.WeaveUI.Samples.GameHud",
+    "rootNamespace": "Nerdova.WeaveUI.Samples.GameHud",
+    "references": ["Nerdova.WeaveUI"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

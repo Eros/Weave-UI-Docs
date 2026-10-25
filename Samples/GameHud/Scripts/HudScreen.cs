@@ -1,16 +1,21 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using static WeaveUI.Ui;
+using static Nerdova.WeaveUI.Ui;
 
-namespace WeaveUI.Samples.GameHud
+namespace Nerdova.WeaveUI.Samples.GameHud
 {
+    /// <summary>
+    /// The HUD: Hud.uxml lays it out with utility classes and binds it to <see cref="HudViewModel"/>; Hud.uss adds the
+    /// parts utilities can't express (bar fills, minimap, toast animation). Quests, the log and toasts are built in C#
+    /// with the fluent builder, from the same classes.
+    /// </summary>
     [ScreenLayout("WeaveUISamples/GameHud/Hud")]
     public sealed class HudScreen : Screen<HudViewModel>
     {
         const int ToastMilliseconds = 4000;
 
-        private WeaveGrid _hotbar;
-        private VisualElement _toasts;
+        WeaveGrid _hotbar;
+        VisualElement _toasts;
 
         public HudScreen(HudViewModel viewModel) : base(viewModel) { }
 
