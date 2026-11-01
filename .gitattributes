@@ -1,0 +1,29 @@
+# Line endings: normalise text, let Git detect the rest
+* text=auto
+
+# Code and markup
+*.cs    text diff=csharp
+*.uxml  text
+*.uss   text
+*.tss   text
+*.md    text diff=markdown
+*.json  text
+
+# Unity serialised YAML: LF everywhere, collapsed in PR diffs
+*.meta       text eol=lf linguist-generated
+*.unity      text eol=lf linguist-generated
+*.prefab     text eol=lf linguist-generated
+*.asset      text eol=lf linguist-generated
+*.mat        text eol=lf linguist-generated
+*.asmdef     text eol=lf
+
+# Binaries: never diff, never touch line endings
+*.png  binary
+*.jpg  binary
+*.psd  binary
+*.ttf  binary
+*.otf  binary
+*.fbx  binary
+
+# Language stats: count the sample code
+Samples/** linguist-documentation=false
