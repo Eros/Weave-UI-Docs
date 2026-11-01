@@ -10,7 +10,7 @@
 
 ## Installing
 
-Coming soon, awaiting Unity approval.
+Add to your Unity Assets via the [Unity Asset Store](https://assetstore.unity.com/packages/tools/weaveui-5176763).
 
 ## Documentation
 
