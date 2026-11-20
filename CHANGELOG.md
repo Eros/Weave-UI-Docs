@@ -8,7 +8,8 @@
 - **Grid:** dragging near a scrolling grid's edge scrolls it (`AutoScrollEdge`, `AutoScrollSpeed`).
 - **Tooltips:** also show when keyboard or gamepad focus moves onto an element (`ShowOnFocus`).
 - **Builds:** methods named only in UXML (`click`, `change`, `drop`) are kept through code stripping by a generated
-  `link.xml`; `[Preserve]` is no longer needed.
+  `link.xml`. It covers screens, the view model types they declare, and `ViewModel` subclasses, so handlers on those
+  no longer need `[Preserve]`. A handler on some other object you bind yourself still does.
 - **Skins:** a skin's *Sprites Folder* fills it from sprites named `<part>[-<state>]` and regenerates its USS when
   they change.
 - **Right-to-left:**

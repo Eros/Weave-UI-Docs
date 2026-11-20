@@ -138,7 +138,7 @@ IDisposable follow = WeaveLocalization.FollowLocale(theme);
 ## Limitations
 
 - **Direction is set for a whole host.** A `dir-ltr` class lower down doesn't undo `dir-rtl` for its subtree. To keep a
-  row left to right, add `rtl:flex-row-reverse` (Tailwind pipeline) or set the direction inline.
+  row left to right, set its direction inline (`style.flexDirection = FlexDirection.Row`), which isn't mirrored.
 - **Inline styles don't mirror,** such as `style.flexDirection` or `style.paddingLeft`.
 - **Not mirrored:** grid layouts (`grid-cols-*`), `WeaveGrid` slot order, slider fill direction, and dropdown menus.
 

@@ -135,8 +135,8 @@ panel.
 ## Right-to-left
 
 - **Direction is set for a whole host.** `dir-rtl` sits on the screen host's container. USS has no `:not()`, so a
-  `dir-ltr` class lower down doesn't undo it for its subtree. To keep a row left to right under `dir-rtl`, add
-  `rtl:flex-row-reverse` (Tailwind pipeline) or set the direction inline.
+  `dir-ltr` class lower down doesn't undo it for its subtree. To keep a row left to right under `dir-rtl`, set its
+  direction inline (`style.flexDirection = FlexDirection.Row`), which isn't mirrored.
 - **Under `dir-rtl`, a logical class outranks a physical one on the same side.** For example, `ps-4` beats `pr-2` on
   one element, because the mirror rules have two classes' specificity.
 - **Mirrors reset the other side to `initial`,** as CSS leaves it unset. `ps-4 pl-2` on one element loses the `pl-2`
