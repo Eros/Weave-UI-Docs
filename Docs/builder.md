@@ -46,7 +46,7 @@ code points: `Button("−")` is `u2212` and `Button("+")` is `u002b`. Pass a nam
 |---|---|---|
 | `El(string name = null)` | `VisualElement` | A plain container. |
 | `Panel(string name = null)` | `VisualElement` | A raised surface with the `panel` class, the usual skin target for cards. |
-| `Row(string name = null)` | `VisualElement` | A container with an inline `flex-direction: row`. |
+| `Row(string name = null)` | `VisualElement` | A container with the `flex-row` class. |
 | `Column(string name = null)` | `VisualElement` | A container with an inline `flex-direction: column`. |
 | `Title(string text)` | `Label` | A heading, with the `title` class. |
 | `Text(string text = null)` | `Label` | A label. Leave the text out when you bind it. |
@@ -56,15 +56,37 @@ code points: `Button("−")` is `u2212` and `Button("+")` is `u002b`. Pass a nam
 | `Slider(string label, float low = 0, float high = 1, float value = 0)` | `WeaveSlider` | A float slider, named from its label. |
 | `Dropdown(string label, IEnumerable<string> choices, int index = 0)` | `WeaveDropdown` | A dropdown, named from its label. |
 | `TextField(string label, string value = "")` | `WeaveTextField` | A text field, named from its label. |
+| `IntegerField(string label, int value = 0)` | `WeaveIntegerField` | A whole-number field, named from its label. |
+| `FloatField(string label, float value = 0)` | `WeaveFloatField` | A decimal field, named from its label. |
+| `Stepper(string label, IEnumerable<string> choices, int index = 0, bool wrap = false)` | `WeaveStepper` | "‹ choice ›"; the value is the choice's index. Named from its label. |
+| `ColorPicker(string label, Color value)` | `WeaveColorPicker` | A runtime colour picker, named from its label. |
 | `ProgressBar(string title = null, float value = 0)` | `WeaveProgressBar` | A progress bar. Not named. |
+| `RadialProgress(float value = 0, string title = null)` | `WeaveRadialProgress` | A ring for cooldowns and charge. Not named. |
+| `Typewriter(string line = null, float charactersPerSecond = 40)` | `WeaveTypewriter` | A dialogue line that types itself out. |
+| `InputPrompt(string action, string text = null)` | `WeaveInputPrompt` | A button glyph that follows the last-used device, plus a label. |
+| `Toasts(int maxVisible = 3, string name = "toasts")` | `WeaveToasts` | A stack of timed notifications. |
 | `Grid(int columns, float cellSize = 64, float gap = 4, string name = null)` | `WeaveGrid` | A slot grid. See [Grid](grid.md). |
 | `Image(Sprite sprite)` | `Image` | A UI Toolkit image, scaled to fit. |
 
-`Row()` and `Column()` set their direction as an inline style, which wins over classes, so don't add `flex-col` to a
-`Row()`. Use `El()` when a class should decide the direction.
+`Row()` uses the `flex-row` class rather than an inline style, so it runs right to left under `dir-rtl` (see
+[Localization and right-to-left](localization.md)). It needs the utility classes, which the default theme includes.
+`Column()` sets its direction as an inline style, which wins over classes, so don't add `flex-row` to a `Column()`.
 
 There are no factories for `ListView` or `TabView`. Create `new WeaveListView()` or `new WeaveTabView()` and chain on
 them like any other element. See [Controls](controls.md).
+
+### Localized factories
+
+With Unity's Localization package (1.5+) installed, these take a `LocalizedString` and update when the locale
+changes:
+
+| Factory | Returns | Description |
+|---|---|---|
+| `LocalizedText(LocalizedString text)` | `Label` | A label. |
+| `LocalizedTitle(LocalizedString text)` | `Label` | A heading, with the `title` class. |
+| `LocalizedButton(LocalizedString text, string name = null)` | `WeaveButton` | A button, named after the entry key unless you pass a name. |
+
+`.Localize(...)` localizes any element; see [Localization and right-to-left](localization.md).
 
 ## Chain methods
 
@@ -106,10 +128,12 @@ Plain containers from `El()`, `Panel()`, `Row()` and `Column()` don't have them.
 | Element | Property | Mode |
 |---|---|---|
 | `WeaveGrid` | `ItemsSource` | To the element |
-| `ProgressBar` | `value` | To the element |
+| `ProgressBar`, `RadialProgress` | `value` | To the element |
+| `Typewriter` | `FullText` | To the element |
+| `InputPrompt` | `text` | To the element |
 | `Button` | `enabledSelf` (whether it is enabled) | To the element |
 | `Label` and other text elements | `text` | To the element |
-| Fields (`Toggle`, `Slider`, `Dropdown`, `TextField`, ...) | `value` | Two-way |
+| Fields (`Toggle`, `Slider`, `Dropdown`, `TextField`, `IntegerField`, `FloatField`, `Stepper`, `ColorPicker`, ...) | `value` | Two-way |
 
 Any other element throws an `ArgumentException`, so pass the property: `El().Bind(nameof(Stat.Fill), "style.width")`.
 `Ui.MainProperty(element)` returns the property and mode `Bind` would use.
@@ -397,9 +421,21 @@ All members are on the static class `Nerdova.WeaveUI.Ui`, except the handler met
 | `Slider` | `WeaveSlider Slider(string label, float low = 0, float high = 1, float value = 0)` |
 | `Dropdown` | `WeaveDropdown Dropdown(string label, IEnumerable<string> choices, int index = 0)` |
 | `TextField` | `WeaveTextField TextField(string label, string value = "")` |
+| `IntegerField` | `WeaveIntegerField IntegerField(string label, int value = 0)` |
+| `FloatField` | `WeaveFloatField FloatField(string label, float value = 0)` |
+| `Stepper` | `WeaveStepper Stepper(string label, IEnumerable<string> choices, int index = 0, bool wrap = false)` |
+| `ColorPicker` | `WeaveColorPicker ColorPicker(string label, Color value)` |
 | `ProgressBar` | `WeaveProgressBar ProgressBar(string title = null, float value = 0)` |
+| `RadialProgress` | `WeaveRadialProgress RadialProgress(float value = 0, string title = null)` |
+| `Typewriter` | `WeaveTypewriter Typewriter(string line = null, float charactersPerSecond = 40)` |
+| `InputPrompt` | `WeaveInputPrompt InputPrompt(string action, string text = null)` |
+| `Toasts` | `WeaveToasts Toasts(int maxVisible = 3, string name = "toasts")` |
 | `Grid` | `WeaveGrid Grid(int columns, float cellSize = 64, float gap = 4, string name = null)` |
 | `Image` | `Image Image(Sprite sprite)` |
+| `LocalizedText` | `Label LocalizedText(LocalizedString text)` (Localization 1.5+) |
+| `LocalizedTitle` | `Label LocalizedTitle(LocalizedString text)` (Localization 1.5+) |
+| `LocalizedButton` | `WeaveButton LocalizedButton(LocalizedString text, string name = null)` (Localization 1.5+) |
+| `Localize` | `T Localize<T>(this T element, LocalizedString text, string property = null)`, and `Localize<T>(this T element, TableReference table, TableEntryReference entry, string property = null)` (Localization 1.5+) |
 | `Class` | `T Class<T>(this T element, string classes)` |
 | `Name` | `T Name<T>(this T element, string name)` |
 | `Style` | `T Style<T>(this T element, Action<IStyle> style)` |

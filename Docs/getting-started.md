@@ -131,7 +131,7 @@ Handlers can be private. They can also ask for values and Weave UI injects them:
 
 If a handler names an element the layout doesn't have, or asks for a value that can't be provided, the screen throws
 when it is built rather than on the first click. You can also name the method in UXML instead of using an attribute
-(`<weave:Button text="Play" click="Play" />`); mark such methods `[Preserve]`, because only the UXML refers to them.
+(`<weave:Button text="Play" click="Play" />`); player builds keep such methods on their own.
 See [Interaction](interaction.md).
 
 ### 4. The bootstrap script

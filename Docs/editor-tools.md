@@ -11,10 +11,11 @@ what it does.
 | **Window > Weave UI > Preview** | Opens the [Preview window](#preview-window) |
 | **Assets > Create > Weave UI > Design Tokens** | Creates a `WeaveTokens` asset named `WeaveTokens` (see [Design tokens inspector](#design-tokens-inspector)) |
 | **Assets > Create > Weave UI > Skin** | Creates a `UISkin` asset named `UISkin` (see [Skins](skins.md)) |
+| **Assets > Create > Weave UI > Input Glyphs** | Creates an `InputGlyphSet` asset named `InputGlyphs`, the button art for [input prompts](controls.md#inputprompt) |
 | **Edit > Project Settings > Weave UI** | The [project settings](#project-settings) page |
 | **Tools > Weave UI Samples > Build Synty Fantasy Menus Skin** | Added by the Builder + Themes sample only (see [below](#build-synty-fantasy-menus-skin)) |
 
-The two **Create** items also appear when you right-click in the Project window and choose **Create > Weave UI**.
+The **Create** items also appear when you right-click in the Project window and choose **Create > Weave UI**.
 
 ## Preview window
 
@@ -112,6 +113,8 @@ Selecting a `UISkin` asset shows:
 - **Add missing states**: adds an empty entry for every state a part doesn't have yet.
 - **Add control**: a menu of ready-made parts, such as *Button / Primary*, *Toggle / Box* and *Grid / Slot*, each with
   its selector and an empty entry for each of its states.
+- **Fill from &lt;folder&gt; and generate**, when the skin has a **Sprites Folder**: fills the skin from sprites named
+  `<part>[-<state>]` and regenerates its USS. This also happens on its own whenever the art changes.
 
 [Skins](skins.md) explains the fields, the states and how to build a skin from an art pack.
 
