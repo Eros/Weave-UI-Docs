@@ -3,10 +3,12 @@
 **Weave UI** is a toolkit package for Unity 6 runtime.
 
 - Tailwind utility classes on design tokens.
-- A themed controls library, plus 9 slice art skins that restyle the same markup.
+- A themed controls library, including game controls such as cooldown rings, steppers, toasts, dialogue text and
+  input prompts, plus 9 slice art skins that restyle the same markup.
 - Screens bound to view models, with transitions and modals.
 - A virtualised inventory grid with drag and drop.
 - A fluent C# builder, and an interaction system that hands each handler exactly the values it asks for.
+- Right-to-left layout and Unity Localization support.
 
 ## Installing
 
@@ -15,7 +17,8 @@ Add to your Unity Assets via the [Unity Asset Store](https://assetstore.unity.co
 ## Documentation
 
 The [documentation](Docs/README.md) covers every part of Weave UI: [getting started](Docs/getting-started.md),
-screens, data binding, interaction, styling, controls, the grid, the C# builder, theming and skins.
+screens, data binding, interaction, styling, controls, the grid, the C# builder, theming, skins, and localization and
+right-to-left. The [changelog](CHANGELOG.md) lists what changed in each version.
 
 ## Samples
 
@@ -37,7 +40,6 @@ public sealed class SettingsScreen : Screen<SettingsViewModel>
     public SettingsScreen(SettingsViewModel viewModel) : base(viewModel) { }
 
     // Settings.uxml has <weave:Button click="AskDefaults" />; an [OnClick("defaults")] attribute works too.
-    [Preserve]
     void AskDefaults() => Manager.Push(new ConfirmDialog(...));
 }
 ```
@@ -62,7 +64,7 @@ public sealed class SettingsScreen : Screen<SettingsViewModel>
   (`click="Apply"`, `change="QualityChanged"`). They declare the values they want: the item, the slot, the drag, the
   previous value, modifier keys. Weave injects them.
 - **Hosting:** one `ScreenHost` component creates the UI document. It owns the screen stack (push, pop, modals,
-  transitions) and `ThemeService` (light/dark, palette, skin).
+  transitions) and `ThemeService` (light/dark, palette, skin, text direction).
 
 ## Requirements
 

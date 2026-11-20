@@ -284,9 +284,12 @@ theme.Mode = ThemeMode.Light;
 | `StyleSheet Palette` | An extra stylesheet of variable overrides, or null. Setting it removes the previous one. |
 | `UISkin Skin` | The active skin, or null for utility styling. Setting it removes the previous skin's stylesheet and class, then adds the new one's. Logs a warning if the skin has no generated stylesheet. |
 | `void RefreshSkin()` | Re-applies the current skin's stylesheet, for example after regenerating it in Play mode. |
-| `event Action Changed` | Raised after `Mode` or `Palette` changes, and after `Skin` is set. |
+| `TextDirection Direction` | `LeftToRight` (default) or `RightToLeft`. Setting it swaps the `dir-ltr` and `dir-rtl` classes. See [Localization and right-to-left](localization.md). |
+| `event Action Changed` | Raised after `Mode`, `Palette` or `Direction` changes, and after `Skin` is set. |
 | `const string DarkClass` | `"theme-dark"`. |
 | `const string LightClass` | `"theme-light"`. |
+| `const string LtrClass` | `"dir-ltr"`. |
+| `const string RtlClass` | `"dir-rtl"`. |
 
 ### ThemeMode
 
@@ -303,7 +306,8 @@ theme.Mode = ThemeMode.Light;
 | `UISkin Skin` | Shortcut for `Theme.Skin` (read-only). |
 | `void SetSkin(UISkin skin)` | Shortcut for setting `Theme.Skin`. |
 | `void RefreshSkin()` | Shortcut for `Theme.RefreshSkin()`. |
-| `VisualElement Container` | The screen container that carries the theme, skin and breakpoint classes. |
+| `VisualElement Container` | The screen container that carries the theme, skin, direction and breakpoint classes. |
+| `bool FollowLocaleDirection` | With the Localization package installed, `Theme.Direction` follows the selected locale. Default true. |
 | `static ThemeStyleSheet LoadTheme()` | The project theme if the Tailwind pipeline wrote one, otherwise the default theme. |
 | `static PanelSettings CreateDefaultPanelSettings()` | New panel settings using `LoadTheme()`, scaled to 1920 x 1080. |
 | `const string DefaultThemePath` | `"WeaveUI/WeaveDefaultTheme"` (a `Resources` path). |

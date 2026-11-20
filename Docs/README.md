@@ -23,9 +23,10 @@ Start with [Getting started](getting-started.md), then read the pages for the pa
 | Page | Covers |
 |---|---|
 | [Styling](styling.md) | Utility classes, state and theme variants, design tokens, semantic colour variables |
-| [Controls](controls.md) | The `weave:` controls, their variants and sizes, and tooltips |
+| [Controls](controls.md) | The `weave:` controls, their variants and sizes, tooltips and context menus |
 | [Theming](theming.md) | Light and dark modes, palettes and skins at runtime through `ThemeService` |
 | [Skins](skins.md) | `UISkin` assets, the skin inspector, and building skins from art packs |
+| [Localization and right-to-left](localization.md) | Right-to-left layout, logical classes, and localized text with Unity's Localization package |
 
 ## Tools and reference
 
@@ -34,6 +35,7 @@ Start with [Getting started](getting-started.md), then read the pages for the pa
 | [Tailwind pipeline](tailwind-pipeline.md) | The optional Tailwind CSS pipeline and importing a Tailwind theme as tokens |
 | [Editor tools](editor-tools.md) | Editor windows, inspectors, settings and menus |
 | [Known limitations](known-limitations.md) | What doesn't work yet, and the workarounds |
+| [Changelog](../CHANGELOG.md) | What changed in each version |
 
 ## Samples
 

@@ -33,6 +33,27 @@ USS draws one background image per element, so each state of each component is o
 Set each sprite's 9-slice border in the Sprite Editor before you use it; the skin uses the sprite's own border unless a
 state overrides it.
 
+### Filling a skin from a folder of sprites
+
+Instead of assigning sprites one by one, name them `<part>[-<state>]`, put them in one folder, and set the skin's
+**Sprites Folder**:
+
+- **Part:** a preset name in lower case: `button`, `primary`, `toggle-box`, `slot`, `panel`, ... These are the
+  [presets](#presets) that *Add control* offers.
+- **State:** `normal`, `hover`, `active`, `focus`, `disabled` or `checked`. No state means normal.
+
+So `button.png` is the button's normal sprite, `primary-hover.png` the primary button's hover sprite, and
+`slot-selected.png` the selected grid slot. The folder is relative to the skin asset, or a full project path
+(`Assets/Art/Skin`).
+
+Weave UI then sets the sprite of every state the folder has a file for, adding preset components as needed, and
+regenerates the skin's USS. It does this again whenever an image in the folder is added, changed, moved or deleted.
+Other state settings, such as tint and padding, are left as you set them. Textures not yet imported as sprites are
+switched to Sprite; set their 9-slice borders in the Sprite Editor. Files that don't name a part and state are listed
+in a console warning.
+
+The inspector's **Fill from &lt;folder&gt; and generate** button does the same on demand.
+
 ### The skin inspector
 
 The top of the inspector shows the skin's root class and where the stylesheet will be written, followed by any
@@ -342,6 +363,7 @@ without entering Play mode. See [Editor tools](editor-tools.md).
 | `string skinName` | Lower-case identifier. Default `"custom"`. |
 | `List<SkinComponent> components` | The skinned parts, written in order. |
 | `StyleSheet styleSheet` | The generated stylesheet, assigned by **Generate USS**. |
+| `string spritesFolder` | Optional folder of sprites named `<part>[-<state>]` that fills the skin. Relative to the asset, or a project path. See [Filling a skin from a folder of sprites](#filling-a-skin-from-a-folder-of-sprites). |
 | `string ClassName` | `skin-<skinName>`, the class that switches the skin on. |
 
 ### SkinComponent

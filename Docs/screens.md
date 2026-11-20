@@ -77,7 +77,12 @@ panelSettings.themeStyleSheet = ScreenHost.LoadTheme();
 
 ```csharp
 host.Theme.Mode = ThemeMode.Light;
+host.Theme.Direction = TextDirection.RightToLeft;
 ```
+
+`host.Theme.Direction` lays every screen out right to left. With the Localization package installed, the host sets it
+from the selected locale unless you turn off `host.FollowLocaleDirection`. See
+[Localization and right-to-left](localization.md).
 
 `host.Tooltips` shows each element's `tooltip` attribute in the overlay layer. See [Controls](controls.md).
 
@@ -417,7 +422,6 @@ This dialog from the [Settings Menu sample](../Samples/SettingsMenu) asks before
 
 ```csharp
 using System;
-using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 using Nerdova.WeaveUI;
 
@@ -439,14 +443,12 @@ public sealed class ConfirmDialog : ModalScreen
         Root.Q<Button>("confirm").text = _confirm;
     }
 
-    [Preserve]
     void Confirm()
     {
         Close();
         _onConfirm?.Invoke();
     }
 
-    [Preserve]
     void Cancel() => Close();
 }
 ```

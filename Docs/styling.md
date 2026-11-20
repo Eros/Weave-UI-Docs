@@ -68,23 +68,23 @@ In the table, `{n}` is a step on the [spacing scale](#spacing-scale), `{f}` a [f
 | Justify | `justify-start`, `justify-end`, `justify-center`, `justify-between`, `justify-around`, `justify-evenly` | `justify-content` |
 | Align self | `self-auto`, `self-start`, `self-end`, `self-center`, `self-stretch` | `align-self` |
 | Align content | `content-start`, `content-end`, `content-center`, `content-stretch` | `align-content` |
-| Padding | `p-{n}`, `p{side}-{n}` (`px-4`, `pt-2`, ...) | `padding` |
-| Margin | `m-{n}`, `m{side}-{n}`; negative `-m-{n}`, `-m{side}-{n}` (`-mt-2`) | `margin` |
+| Padding | `p-{n}`, `p{side}-{n}` (`px-4`, `pt-2`, ...); logical `ps-{n}`, `pe-{n}` | `padding` |
+| Margin | `m-{n}`, `m{side}-{n}`; negative `-m-{n}`, `-m{side}-{n}` (`-mt-2`); logical `ms-{n}`, `me-{n}` | `margin` |
 | Width | `w-auto`, `w-full`, `w-{n}`, `w-{f}` | `width` |
 | Height | `h-auto`, `h-full`, `h-{n}`, `h-{f}` | `height` |
 | Size | `size-auto`, `size-full`, `size-{n}`, `size-{f}` | `width` and `height` |
 | Min size | `min-w-full`, `min-w-{n}`, `min-h-full`, `min-h-{n}` | `min-width`, `min-height` |
 | Max size | `max-w-full`, `max-w-none`, `max-w-{n}`, `max-h-full`, `max-h-none`, `max-h-{n}` | `max-width`, `max-height` |
 | Inset | `inset-0`, `inset-x-0`, `inset-y-0` | `top`, `right`, `bottom`, `left` |
-| Offsets | `top-`, `right-`, `bottom-`, `left-` + `auto`, `full` or `{n}`; negative `-top-{n}`, ... | `top`, `right`, `bottom`, `left` |
+| Offsets | `top-`, `right-`, `bottom-`, `left-` + `auto`, `full` or `{n}`; negative `-top-{n}`, ...; logical `start-`, `end-` | `top`, `right`, `bottom`, `left` |
 | Font size | `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-2xl` ... `text-9xl` | `font-size` |
 | Font weight | `font-thin`, `font-extralight`, `font-light`, `font-normal`, `font-medium`, `font-semibold`, `font-bold`, `font-extrabold`, `font-black` | `-unity-font-style` |
 | Font style | `italic`, `not-italic` | `-unity-font-style` |
-| Text align | `text-left`, `text-center`, `text-right` | `-unity-text-align` (upper row) |
+| Text align | `text-left`, `text-center`, `text-right`; logical `text-start`, `text-end` | `-unity-text-align` (upper row) |
 | Whitespace | `whitespace-normal`, `whitespace-nowrap`, `whitespace-pre-wrap` | `white-space` |
 | Text overflow | `text-ellipsis`, `text-clip`, `truncate` | `text-overflow` (`truncate` also sets `overflow` and `white-space`) |
-| Border width | `border`, `border-0`, `border-2`, `border-4`, `border-8`, `border-{side}`, `border-{side}-{0,2,4,8}` | `border-width` |
-| Border radius | `rounded`, `rounded-{radius}`, `rounded-full`, and per side or corner: `rounded-{t,r,b,l,tl,tr,br,bl}-{radius}` | `border-radius` |
+| Border width | `border`, `border-0`, `border-2`, `border-4`, `border-8`, `border-{side}`, `border-{side}-{0,2,4,8}`; logical `border-s`, `border-e` | `border-width` |
+| Border radius | `rounded`, `rounded-{radius}`, `rounded-full`, and per side or corner: `rounded-{t,r,b,l,tl,tr,br,bl}-{radius}`; logical `rounded-{s,e,ss,se,es,ee}-{radius}` | `border-radius` |
 | Background colour | `bg-transparent`, `bg-{colour}` | `background-color` |
 | Text colour | `text-transparent`, `text-{colour}` | `color` |
 | Border colour | `border-transparent`, `border-{colour}` | `border-color` |
@@ -99,6 +99,9 @@ Notes:
   italic, write `-unity-font-style: bold-and-italic;` in your own USS.
 - **Text alignment** keeps Unity's default top alignment: `text-center` is `upper-center`. For vertical centring, write
   `-unity-text-align: middle-center;` in your own USS.
+- **Logical classes** (`ps-4`, `ms-2`, `start-0`, `text-start`, `border-s`, `rounded-s-lg`) mean left under `dir-ltr`
+  and right under `dir-rtl`, where `flex-row` also runs right to left. See
+  [Localization and right-to-left](localization.md).
 - **Radii:** `{radius}` is a radius token name: `none`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl` with the
   default tokens. `rounded` alone uses the `DEFAULT` radius token. `rounded-full` is `9999px`.
 - **Shorthands lose to longhands:** padding, margin, border and radius shorthands are written before their longhands,

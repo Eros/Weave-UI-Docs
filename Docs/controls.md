@@ -2,7 +2,7 @@
 
 Weave UI's controls are thin wrappers over Unity's own controls that add BEM classes, variant and size modifiers,
 per-control skins and UXML handler names. This page covers each control's UXML attributes, the classes it carries,
-how to create it in C#, and runtime tooltips.
+how to create it in C#, runtime tooltips and context menus.
 
 ## Using the controls
 
@@ -30,12 +30,20 @@ and keyboard or gamepad navigation. The default look comes from `controls.uss` a
 | `weave:Slider` | `WeaveSlider` | `Slider` | `slider` | `change` |
 | `weave:Dropdown` | `WeaveDropdown` | `DropdownField` | `dropdown` | `change` |
 | `weave:TextField` | `WeaveTextField` | `TextField` | `textfield` | `change` |
+| `weave:IntegerField` | `WeaveIntegerField` | `IntegerField` | `numberfield` | `change` |
+| `weave:FloatField` | `WeaveFloatField` | `FloatField` | `numberfield` | `change` |
+| `weave:Stepper` | `WeaveStepper` | `BaseField<int>` | `stepper` | `change` |
+| `weave:ColorPicker` | `WeaveColorPicker` | `BaseField<Color>` | `colorpicker` | `change` |
 | `weave:ProgressBar` | `WeaveProgressBar` | `ProgressBar` | `progress` | None |
+| `weave:RadialProgress` | `WeaveRadialProgress` | `VisualElement` | `radial` | None |
+| `weave:Typewriter` | `WeaveTypewriter` | `Label` | `typewriter` | None |
+| `weave:Toasts` | `WeaveToasts` | `VisualElement` | `toasts` | None |
+| `weave:InputPrompt` | `WeaveInputPrompt` | `VisualElement` | `prompt` | None |
 | `weave:ListView` | `WeaveListView` | `ListView` | `list` | None |
 | `weave:TabView` | `WeaveTabView` | `TabView` | `tabs` | None |
 | `weave:Grid` | `WeaveGrid` | `VisualElement` | `weave-grid` | `click`, `drop` |
 
-`weave:Grid` is covered in [Grid](grid.md).
+`weave:Grid` is covered in [Grid](grid.md). [Context menus](#context-menus) are created in C# only.
 
 ## Common attributes
 
@@ -98,14 +106,13 @@ injection as `[OnClick]` and `[OnValueChanged]`:
 
 ```csharp
 // On the view model: the new value and, with [Previous], the old one are injected.
-[Preserve]
 public void QualityChanged(string quality, [Previous] string was) => Status = $"Quality: {was} → {quality}";
 ```
 
 - **Missing methods fail early.** If no method has that name, building the screen throws an
   `InteractionBindingException` that names the attribute, the control and the classes searched.
-- **Mark the methods `[Preserve]`.** Only the UXML refers to them, so managed code stripping would otherwise remove
-  them from player builds.
+- **Player builds keep the methods.** A build step reads the handler names from your UXML and writes a `link.xml`,
+  so code stripping doesn't remove them. See [Interaction](interaction.md#uxml-handlers-in-player-builds).
 - **`change` fires when the player (or your code) changes the value,** not when a data binding writes the model's
   value into the control, such as its first write when the screen appears.
 - **Handler names are read when the screen builds its layout.** Controls created later, such as list rows or elements
@@ -350,6 +357,71 @@ Unity's `TextField` attributes, such as `max-length`, `multiline` and `password`
 
 C#: `Ui.TextField(string label, string value = "")`; `ChangeHandler`.
 
+## IntegerField and FloatField
+
+Number inputs, with Unity's drag-the-label editing.
+
+```xml
+<weave:IntegerField name="gold" label="Gold" value="100" change="OnGold" />
+<weave:FloatField name="scale" label="Scale" value="1.5" change="OnScale" />
+```
+
+| Attribute | Values | Description |
+|---|---|---|
+| `label` | Text | The field label |
+| `value` | Number | The value; binds two-way like any field |
+| `change` | Method name | Called with the new `int` or `float` |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+Both use the block class `numberfield`.
+
+C#: `Ui.IntegerField(string label, int value = 0)`, `Ui.FloatField(string label, float value = 0)`.
+
+## Stepper
+
+"‹ High ›": steps through a list of choices with its arrows or, when focused, left and right on a keyboard or
+gamepad. It's the usual console settings control. The value is the choice's index, so it binds two-way like a slider.
+
+```xml
+<weave:Stepper name="quality" label="Quality" choices="Low,Medium,High" value="1" wrap="true" change="OnQuality" />
+```
+
+| Attribute | Values | Description |
+|---|---|---|
+| `label` | Text | The field label |
+| `choices` | Comma-separated text | The choices |
+| `value` | Number | The starting choice's index |
+| `wrap` | `true`, `false` | Past the last choice comes the first again, and the other way |
+| `change` | Method name | Called with the new `int` index |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+Classes: `stepper`, `stepper__button` (with `stepper__button--previous` and `stepper__button--next`) and
+`stepper__text`. `Step(int by)` moves as the arrows do.
+
+C#: `Ui.Stepper(string label, IEnumerable<string> choices, int index = 0, bool wrap = false)`.
+
+## ColorPicker
+
+A runtime colour picker (UI Toolkit's `ColorField` is editor-only): a saturation and brightness square, a hue bar, a
+swatch and a hex field. It binds two-way like any field.
+
+```xml
+<weave:ColorPicker name="hair" label="Hair" value="#8b5a2b" change="OnHair" />
+```
+
+| Attribute | Values | Description |
+|---|---|---|
+| `label` | Text | The field label |
+| `value` | A colour (`#rrggbb`) | The colour |
+| `change` | Method name | Called with the new `Color` |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+The picker keeps the value's alpha but has no alpha control. `SetHsv(h, s, v)` sets the colour from hue, saturation and
+brightness (0 to 1). Classes: `colorpicker`, `colorpicker__sv`, `colorpicker__hue`, `colorpicker__handle`,
+`colorpicker__swatch` and `colorpicker__hex`.
+
+C#: `Ui.ColorPicker(string label, Color value)`.
+
 ## ProgressBar
 
 A read-only bar for health, loading or experience.
@@ -383,6 +455,27 @@ C#: `Ui.ProgressBar(string title = null, float value = 0)`. The builder's `Bind(
 ```csharp
 ProgressBar("Poison 20%", 20).Variant("danger")
 ```
+
+## RadialProgress
+
+A ring that fills clockwise from 12 o'clock, for cooldowns, charge meters and loading spinners. Bind `value` as you
+would a progress bar's.
+
+```xml
+<weave:RadialProgress name="cooldown" value="40" title="4s" class="w-16 h-16" />
+```
+
+| Attribute | Values | Description |
+|---|---|---|
+| `value` | Number | Progress between `low-value` and `high-value` (0 to 100 by default) |
+| `title` | Text | Text in the middle of the ring, hidden when empty |
+| `counter-clockwise` | `true`, `false` | Fills anticlockwise instead, for a cooldown that drains |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+The ring's look comes from USS: `--radial-thickness`, `--radial-fill-color` and `--radial-track-color`. Classes:
+`radial`, and `radial__title` for the centre label.
+
+C#: `Ui.RadialProgress(float value = 0, string title = null)`.
 
 ## ListView
 
@@ -458,6 +551,151 @@ Unity's `TabView` and `Tab` attributes, such as the tab's `label`, still apply.
 
 The [Settings menu sample](../Samples/SettingsMenu) uses a `TabView` with four tabs.
 
+## Typewriter
+
+A label that types its text out, for dialogue. The untyped rest is laid out but transparent, so lines don't re-wrap
+as they type. Rich text tags count as no characters.
+
+```xml
+<weave:Typewriter name="line" characters-per-second="40" />
+```
+
+```csharp
+var line = Root.Q<WeaveTypewriter>("line");
+line.FullText = "Welcome, traveller.";          // starts typing (or bind full-text)
+line.Typed += c => PlayTypingSound();
+line.Completed += ShowContinueArrow;
+
+// The usual "press to finish, press again to continue":
+if (line.IsPlaying) line.Skip(); else NextLine();
+```
+
+| Attribute | Values | Description |
+|---|---|---|
+| `full-text` | Text | The whole line; setting it starts typing |
+| `characters-per-second` | Number | Typing speed |
+| `play-on-set` | `true`, `false` | Whether setting `full-text` starts typing; otherwise it shows at once |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+| Member | Description |
+|---|---|
+| `Play(string line = null)` | Types `line`, or the current line again, from the start |
+| `Show(string line = null)` | Shows the line complete, without typing or `Completed` |
+| `Skip()` | Reveals the rest of the line now |
+| `Completed` | Runs when a line finishes, typed out or skipped |
+| `Typed` | Runs for each newly revealed character, for typing sounds |
+
+Classes: `typewriter`, and `typewriter--playing` while it types.
+
+C#: `Ui.Typewriter(string line = null, float charactersPerSecond = 40)`.
+
+## Toasts
+
+A stack of short notifications that time out. Put one in your layout, then show toasts from code:
+
+```xml
+<weave:Toasts name="toasts" max-visible="3" class="absolute right-4 bottom-4" />
+```
+
+```csharp
+var toasts = Root.Q<WeaveToasts>("toasts");
+toasts.Show("Saved", "success");
+toasts.Show("Inventory full", "danger", seconds: 5, priority: 1);
+```
+
+At most `max-visible` toasts show at once. The rest wait in a queue, higher priority first, then oldest first. The
+newest shows at the end of the stack; add `flex-col-reverse` to put it on top. Each toast enters and leaves with
+`transition` (`SlideUp` by default).
+
+| Attribute | Values | Description |
+|---|---|---|
+| `max-visible` | Number | How many show at once. Default 3 |
+| `duration` | Seconds | How long a toast stays when `Show` isn't given a duration. Default 3 |
+| `transition` | A `ScreenTransition` | How toasts enter and leave |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+| Member | Description |
+|---|---|
+| `Show(string text, string variant = null, float? seconds = null, int priority = 0)` | Shows a text toast, or queues it. `seconds` ≤ 0 keeps it until dismissed. Returns the toast |
+| `Show(VisualElement content, ...)` | Shows any element as a toast |
+| `Dismiss(VisualElement toast)` | Removes a toast now, showing or queued |
+| `DismissAll()` | Removes every toast at once |
+
+Classes: `toasts`, `toast`, and `toast--<variant>` for the variant passed to `Show`.
+
+C#: `Ui.Toasts(int maxVisible = 3, string name = "toasts")`.
+
+## InputPrompt
+
+"Ⓐ Buy": a button glyph for an action plus a label. The glyph follows the device the player last used: keyboard and
+mouse, Xbox, PlayStation, Switch, or another gamepad.
+
+```xml
+<weave:InputPrompt action="submit" text="Buy" />
+<weave:InputPrompt action="cancel" text="Back" />
+```
+
+| Attribute | Values | Description |
+|---|---|---|
+| `action` | An action name | The action whose glyph shows: `submit`, `cancel`, `jump`, ... |
+| `text` | Text | The label after the glyph |
+| `glyphs` | An `InputGlyphSet` | Glyphs for just this prompt; by default the project's set |
+| `variant`, `size`, `skin` | | See [Common attributes](#common-attributes) |
+
+**Glyph art.** Create an `InputGlyphSet` with *Create → Weave UI → Input Glyphs* and save it at
+`Resources/WeaveUI/InputGlyphs` to apply it everywhere. Each entry is an action, a scheme and a sprite. An action
+missing for a pad family falls back to the generic `Gamepad` entry. Without a sprite, the prompt shows the glyph as text
+in a key cap. Built-in text glyphs cover `submit`, `cancel` and `menu`.
+
+**Device detection.** With the Input System package (1.1+) installed, any button press on a device switches the
+scheme. Without it, key and mouse presses switch to keyboard, and your own input code reports pads:
+
+```csharp
+InputGlyphs.Report(InputScheme.PlayStation);
+```
+
+| Member | Description |
+|---|---|
+| `InputGlyphs.Current` | The scheme the player last used |
+| `InputGlyphs.Changed` | Runs when the scheme or the glyph set changes |
+| `InputGlyphs.Set` | The project's glyph set; assign one to replace it |
+| `InputGlyphs.Report(InputScheme scheme)` | Switches the scheme, from your input code or a "prompts" setting |
+| `WeaveInputPrompt.Scheme` | Pins one prompt to a scheme; null follows `InputGlyphs.Current` |
+
+Classes: `prompt`, `prompt--<scheme>` (`keyboard-mouse`, `xbox`, `playstation`, `switch`, `gamepad`),
+`prompt__glyph`, `prompt__key` (text glyphs) and `prompt__label`.
+
+C#: `Ui.InputPrompt(string action, string text = null)`.
+
+## Context menus
+
+`WeaveContextMenu` is a pop-up list of actions at a point, usually opened from `[OnRightClick]`. It's C# only:
+
+```csharp
+[OnRightClick("bag")]
+void Menu(Item item, Vector2 position, WeaveGrid grid) =>
+    new WeaveContextMenu()
+        .Item("Use", () => Use(item))
+        .Separator()
+        .Item("Drop", () => Drop(item), enabled: item.CanDrop)
+        .Show(grid, position);
+```
+
+The menu opens in the screen host's overlay (or the panel root), kept inside its bounds. It takes focus so arrows,
+submit and cancel work, and closes on a choice, Escape or cancel, or a press outside it. Menus have one level, with no
+submenus.
+
+| Member | Description |
+|---|---|
+| `Item(string label, Action action, bool enabled = true)` | Adds an item |
+| `Separator()` | Adds a dividing line |
+| `Show(VisualElement near, Vector2 position, VisualElement layer = null)` | Opens at `position`, in panel coordinates as pointer events give them |
+| `Close()` | Closes the menu |
+| `Closed` | Runs each time the menu closes, whether or not an item was chosen |
+
+Classes: `context-menu`, `context-menu__item`, `context-menu__separator`, and the full-size `context-menu__blocker`
+behind the menu.
+
 ## Grid
 
 `weave:Grid` (`WeaveGrid`) is the virtualised slot grid for inventories, hotbars and shops, with drag and drop. It takes
@@ -498,15 +736,8 @@ every screen. How it behaves:
   kept inside the layer.
 - **Hiding:** when the pointer leaves the element, and on any pointer press, submit or key press, since these may open
   a dialog or change the screen.
-- **Keyboard focus** doesn't show tooltips. For a focus-driven UI, call `ShowFor` yourself:
-
-```csharp
-host.Container.RegisterCallback<FocusInEvent>(evt =>
-{
-    if (evt.target is VisualElement element && !string.IsNullOrEmpty(element.tooltip))
-        host.Tooltips.ShowFor(element);
-});
-```
+- **Focus:** when Tab, the arrow keys or a gamepad move focus onto an element, its tooltip shows too. Clicks and
+  `Focus()` from code don't show one. Set `ShowOnFocus` to false to turn this off.
 
 The label has class `tooltip` and name `weave-tooltip`. Its default style: 4px 8px padding, 1px `--weave-border` border,
 `--radius-md`, `--weave-tooltip` background, `--weave-tooltip-text` at `--text-sm`, wrapping at 320 units. Restyle it
@@ -533,6 +764,7 @@ var tooltips = new TooltipController(root, layer) { DelayMilliseconds = 300 };
 | `Label` | The tooltip `Label` (class `tooltip`) |
 | `DelayMilliseconds` | Hover time before the tooltip appears. Default 500 |
 | `Offset` | Gap between the element and the tooltip, in panel units. Default 8 |
+| `ShowOnFocus` | Whether keyboard or gamepad focus moving onto an element shows its tooltip. Default true |
 | `Showing` | The element whose tooltip is showing, or null |
 | `ShowFor(VisualElement element)` | Shows `element`'s tooltip now, without the delay |
 | `Hide()` | Hides the tooltip |

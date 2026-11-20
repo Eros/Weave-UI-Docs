@@ -58,7 +58,8 @@ The post-processor converts these, because the raw CSS would lose the stylesheet
 - `oklch()`, `oklab()`, `hsl()` and `color-mix()` become `rgba()`/hex.
 - `cubic-bezier()` becomes the nearest USS easing keyword.
 - Percentages for `opacity` and `scale` become numbers.
-- Logical properties (`padding-inline`, ...) become left/right (LTR only).
+- Logical properties (`padding-inline-start`, `text-align: start`, ...) become left/right, plus a mirrored rule under
+  `dir-rtl`. So does `flex-direction: row`.
 - `inset-*` is expanded.
 
 If you write USS by hand, avoid the raw forms. Unknown functions in a value break every later style update on that
@@ -99,12 +100,22 @@ panel.
 - **Unity's own disabled styles** (for example a grey button background) can show through Weave's variants.
 - **Dropdown menus** open at the panel root, outside your screen, so their style in `controls.uss` is global.
 - **Tooltips** come from `ScreenHost`'s `TooltipController`. Elsewhere, create one yourself. The tooltip follows the
-  pointer target; keyboard focus doesn't show tooltips.
+  pointer target or the element that keyboard or gamepad focus moved to (clicks and `Focus()` from code don't show
+  one).
 - **Long-press and value-changed handlers can't be bound to grids.**
+- **ColorPicker** keeps the value's alpha but has no alpha control. Its gradients use vertex colours, so in a linear
+  colour space project they are slightly off from true HSV.
+- **Typewriter** hides the untyped rest with `<alpha=#00>`. A `<color>` tag with its own alpha inside the untyped part
+  shows early, and with rich text off the line re-wraps as it types.
+- **InputPrompt** detects pads only with the Input System package (1.1+), from any button press. Without it, only key
+  and mouse presses switch the scheme; call `InputGlyphs.Report` for pads. Built-in text glyphs cover `submit`,
+  `cancel` and `menu`; add a glyph set for anything else.
+- **Context menus** have one level (no submenus).
 
 ## Grid
 
-- **Dragging:** one pointer drag at a time, with no auto-scroll near a scrolling grid's edge.
+- **Dragging:** one pointer drag at a time. Near a scrolling grid's edge (`AutoScrollEdge`, 40 by default) the grid
+  under the item scrolls, faster closer to the edge (`AutoScrollSpeed`).
 - **Occupancy maps:** placed items aren't virtualised (slots are). Swapping an occupancy item with an item in a plain
   grid is rejected.
 - **Stale cells:** cells refresh when the grid refreshes or the item notifies a property change. Changing what an
@@ -121,6 +132,37 @@ panel.
 - **The light palette covers the controls' semantic variables.** Utility classes in your own markup need `dark:`
   pairs to switch with it.
 
+## Right-to-left
+
+- **Direction is set for a whole host.** `dir-rtl` sits on the screen host's container. USS has no `:not()`, so a
+  `dir-ltr` class lower down doesn't undo it for its subtree. To keep a row left to right under `dir-rtl`, add
+  `rtl:flex-row-reverse` (Tailwind pipeline) or set the direction inline.
+- **Under `dir-rtl`, a logical class outranks a physical one on the same side.** For example, `ps-4` beats `pr-2` on
+  one element, because the mirror rules have two classes' specificity.
+- **Mirrors reset the other side to `initial`,** as CSS leaves it unset. `ps-4 pl-2` on one element loses the `pl-2`
+  under `dir-rtl`.
+- **Inline styles don't mirror** (`style.flexDirection = Row`, `style.paddingLeft`). `Ui.Row()` uses the `flex-row`
+  class for this reason.
+- **Not mirrored:** grid layouts (`grid-cols-*`), `WeaveGrid` slot order, slider fill direction, and dropdown menus
+  (they open at the panel root, outside the host).
+- **Text alignment:** plain labels keep Unity's left alignment; use `text-start`. Weave's field labels, text inputs,
+  titles, dialogs and tooltips align right under `dir-rtl`.
+- **Arabic shaping needs the advanced text generator,** a project setting (*Project Settings → UI Toolkit → Advanced
+  Text Generator*) plus `-unity-text-generator: advanced` in your own USS. Weave UI can't turn it on, because the
+  property logs an error while the setting is off. Without it, Arabic-script letters don't join and mixed-direction
+  text keeps its stored order.
+- **Locale direction** comes from a fixed list of right-to-left language codes, not `CultureInfo`, which IL2CPP
+  builds with invariant globalization report as left to right.
+
+## Localization
+
+- **Needs com.unity.localization 1.5 or newer,** detected by a version define. Without it, `Localize`,
+  `LocalizedText`/`LocalizedTitle`/`LocalizedButton` and locale-driven direction aren't compiled. Direction itself
+  works without the package.
+- **The builder uses separate names** (`LocalizedText`, not a `Text(LocalizedString)` overload). An overload would
+  make every assembly that calls `Text("...")` reference Unity.Localization.
+- **Dropdown choices and tab labels** aren't localized by Weave; bind them yourself.
+
 ## Skins
 
 - **One background image per state:** USS draws a single background image, so layered art (fill + frame) has to be
@@ -134,6 +176,5 @@ panel.
     one. Weave's controls override almost all of them.
   - Hover, Active and Focus can't be forced (UI Toolkit has no public way to), so the Live column shows them as you
     hover, press or Tab to its controls.
-- **Not built yet:**
-  - JSON import/export of tokens.
-  - A build step that generates `link.xml` for methods named only in UXML (mark them `[Preserve]` for now).
+- **Handler `link.xml`** covers methods named in UXML on screens, the view model types they declare, and `ViewModel`
+  subclasses. Handlers on some other object you bind yourself still need `[Preserve]`.
