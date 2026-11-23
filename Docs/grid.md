@@ -360,6 +360,11 @@ Releasing over a valid slot drops the item. Releasing anywhere else, onto a reje
 leaving the panel cancels the drag. One pointer drags at a time: a second finger is ignored while the first is pressed
 or dragging. Drags work between any two grids on the same panel.
 
+Holding a dragged item near the edge of a scrolling grid scrolls that grid, faster the closer the item is to the edge.
+`AutoScrollEdge` sets how close that is (40 panel units by default) and `AutoScrollSpeed` the speed at the very edge
+(600 panel units a second). Both are read from the grid the drag started in; set its `AutoScrollEdge` to 0 to turn
+auto-scroll off.
+
 ### Outcomes
 
 While dragging, the grid under the pointer works out what a drop there would do, a `DropOutcome`, and works it out
@@ -578,18 +583,16 @@ void Inspect(InventoryItem item, [Row] int row, [Column] int column) { ... }
 
 ### UXML handlers
 
-`click` and `drop` name a method on the screen's view model or the screen, with the same parameter injection. Mark the
-method `[Preserve]`, because only the UXML refers to it.
+`click` and `drop` name a method on the screen's view model or the screen, with the same parameter injection.
+Player builds keep the method; see [Interaction](interaction.md#uxml-handlers-in-player-builds).
 
 ```xml
 <weave:Grid name="bag" columns="8" cell-size="64" gap="6" drag="default" click="UseItem" drop="ItemDropped" />
 ```
 
 ```csharp
-[Preserve]
 void UseItem(Item item, [Slot] int slot) { ... }
 
-[Preserve]
 void ItemDropped([Source] Item dragged, DropOutcome outcome) { ... }
 ```
 
@@ -699,6 +702,8 @@ multi-cell item art; see [Skins](skins.md).
 | `GridDragMode DragMode` | `None`, `Default` or `Manual`. |
 | `Func<GridDrag, DropOutcome> DropRule` | Overrides the default outcome of drops onto this grid. |
 | `Func<object, Vector2Int> ItemSize` | The size of items dropped into this grid's map from a plain grid. |
+| `float AutoScrollEdge` | How close to a scrolling grid's edge a dragged item starts scrolling it. Default 40. |
+| `float AutoScrollSpeed` | Auto-scroll speed at the very edge, in panel units per second. Default 600. |
 | `GridDrag ActiveDrag` | The drag in progress from this grid, or `null`. |
 | `DropOutcome DropTo(int sourceSlot, WeaveGrid target, int targetSlot)` | Drops an item without a pointer. |
 | `void CancelDrag()` | Cancels the drag in progress from this grid. |
@@ -746,7 +751,8 @@ viewport shows. It is pure maths, so you can use it to lay out something that li
 
 ## Limitations
 
-- One pointer drag at a time, and no auto-scroll near the edge of a scrolling grid.
+- One pointer drag at a time.
+- Slot order doesn't mirror under right-to-left (`dir-rtl`).
 - Placed items in an occupancy map aren't virtualised.
 - A cell updates when the grid refreshes or its item notifies a property change. Changing what an item's properties
   return without notifying doesn't update its cell.

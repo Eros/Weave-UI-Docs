@@ -140,12 +140,13 @@ equivalent attribute.
 | Element | Attribute | Bound like |
 |---|---|---|
 | `weave:Button`, `weave:IconButton` | `click` | `[OnClick]`: left button, one click, keyboard and gamepad submit |
-| `weave:Toggle`, `weave:Slider`, `weave:Dropdown`, `weave:TextField` | `change` | `[OnValueChanged]` |
+| `weave:Toggle`, `weave:Slider`, `weave:Dropdown`, `weave:TextField`, `weave:IntegerField`, `weave:FloatField`, `weave:Stepper`, `weave:ColorPicker` | `change` | `[OnValueChanged]` |
 | `weave:Grid` | `click` | `[OnCellClick]` |
 | `weave:Grid` | `drop` | `[OnDrop]` |
 
-`weave:ProgressBar`, `weave:ListView` and `weave:TabView` have no handler attributes, and Unity's own `ui:` elements
-don't take them; use a handler attribute for those.
+`weave:ProgressBar`, `weave:RadialProgress`, `weave:Typewriter`, `weave:Toasts`, `weave:InputPrompt`,
+`weave:ListView` and `weave:TabView` have no handler attributes, and Unity's own `ui:` elements don't take them; use a
+handler attribute for those.
 
 ```xml
 <weave:Dropdown name="quality" choices="Low,Medium,High,Ultra" change="QualityChanged" />
@@ -153,22 +154,24 @@ don't take them; use a handler attribute for those.
 ```
 
 ```csharp
-[Preserve]
 public void QualityChanged(string quality, [Previous] string was) => SetStatus($"Quality: {was} → {quality}");
 ```
 
 The name must match exactly one method on the class where it is found. Overloads with that name are an error.
 
-### Keep UXML handlers with [Preserve]
+### UXML handlers in player builds
 
 Managed code stripping removes methods that nothing references. The handler attributes derive from Unity's
-`PreserveAttribute`, so methods marked with them are always kept. A method named only in UXML has no attribute, so
-mark it `[Preserve]` (namespace `UnityEngine.Scripting`), or a stripped player build can't find it:
+`PreserveAttribute`, so methods marked with them are always kept. Methods named only in UXML are kept by a build step:
+it reads the `click`, `change` and `drop` names from every UXML file in the project and gives the linker a `link.xml`
+for the methods with those names. You don't need `[Preserve]`.
+
+The generated `link.xml` covers screens, the view model types they declare, and `ViewModel` subclasses. A handler on
+some other object that you bind yourself still needs `[Preserve]` (namespace `UnityEngine.Scripting`):
 
 ```csharp
 using UnityEngine.Scripting;
 
-/// <summary>click="Act" on the details panel's button.</summary>
 [Preserve]
 void Act() { ... }
 ```
